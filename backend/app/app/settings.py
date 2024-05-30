@@ -125,6 +125,17 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
+STATICFILES_DIRS = [
+    
+]
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = reverse_lazy('main:index')
+LOGIN_REDIRECT_URL = reverse_lazy('department:index')
+
+AUTH_USER_MODEL = 'accounts.Doctor'
+
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.CustomAuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]

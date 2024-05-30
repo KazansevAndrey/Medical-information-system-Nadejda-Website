@@ -1,34 +1,35 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Аутентификация</title>
-    <link rel="stylesheet" href="Auntf.css">
+    <link rel="stylesheet" href="{%static 'css/auth.css'%}">
 </head>
 <body>
     <div class="loginForm">
         <h2>Вход в систему</h2>
-        <form id="myForm" method="post" action="{% url 'my_view' %}">
+        <form id="myForm" method="post" action="{% url 'accounts:login' %}">
             {% csrf_token %}
             <div id="step1">
                 <label for="phone_number">Номер телефона:</label>
-                <input type="text" id="phone_number" name="phone_number" placeholder="Введите номер телефона" pattern="\d{11}" required>
+                <input name="phone" type="text" id="phone_number" name="phone_number" placeholder="Введите номер телефона" pattern="\d{11}" required>
                 <br>
                 <label for="iin">ИИН:</label>
-                <input type="text" id="iin" name="iin" placeholder="Введите ИИН" pattern="\d{12}" required>
+                <input name= "iin" type="text" id="iin" name="iin" placeholder="Введите ИИН" pattern="\d{12}" required>
                 <br>
                 <button type="submit">Отправить</button>
             </div>
       
             <div id="step2" style="display:none;">
                 <label for="code">Введите 4-значный код</label>
-                <input type="text" id="code" name="code" pattern="\d{4}" required>
+                <input name = "code" type="text" id="code" name="code" pattern="\d{4}" required>
                 <button type="submit">Подтвердить</button>
             </div>
             
         </form>
     </div>
-    <script src="script.js"></script>
+    <script src="{%static 'scripts/auth.js'%}"></script>
 </body>
 </html>

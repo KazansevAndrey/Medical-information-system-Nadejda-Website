@@ -1,14 +1,27 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
-from .forms import UserRegisterForm
-def register(request):
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def redirect_view(request):
+	return redirect('/department')
+	
+def user_login(request):
 	if request.method == 'POST':
-    	form = UserRegisterForm(request.POST)
-    	if form.is_valid():
-        	form.save()
-        	username = form.cleaned_data.get('username')
-        	messages.success(request, f'Создан аккаунт {username}!')
-        	return redirect('blog-home')
+		phone_number=request.POST('phone')
+		iin = request.POST('iin')
+		code= request.POST('code')
+		user = authenticate(iin=iin, phone_number=phone_number, code=code)
+		if user is not None:
+            # Вход успешен
+			user = authenticate(iin=iin, phone_number=phone_number)
+			
+		else:
+            # Вход не удался
+			return render(request, 'accounts/login.html', {'error_message': 'Неверные учетные данные'})
+	
 	else:
-    	form = UserRegisterForm()
-	return render(request, 'users/register.html', {'form': form})
+		return render(request, 'accounts/login.html')
+		
+def user_logout(request):
+	pass

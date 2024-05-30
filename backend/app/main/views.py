@@ -1,9 +1,8 @@
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
-@login_required
-def view_department(request):
-    context = {'title': 'Отделение'}
-    return render(request, 'department/department.html', context)
 
+@login_required
+def index(request):
+    context = {'title': 'Главная'}
+    return render(request, 'department/department.html', context)
