@@ -5,6 +5,6 @@ from department import views
 app_name = 'department'
 
 urlpatterns = [
-    path('', views.view_department, name='index'),
+    path('', views.view_department, name='redirect'),
 
 ]

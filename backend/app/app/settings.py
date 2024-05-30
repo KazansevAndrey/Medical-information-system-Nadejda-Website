@@ -14,7 +14,7 @@ from pathlib import Path
 
 from django.conf.global_settings import LOGIN_REDIRECT_URL
 from django.urls import reverse_lazy
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -125,17 +125,15 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-STATICFILES_DIRS = [
-    
-]
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = reverse_lazy('department:index')
-
-AUTH_USER_MODEL = 'accounts.Doctor'
+LOGIN_REDIRECT_URL = 'department:index'
 
 AUTHENTICATION_BACKENDS = [
     'accounts.backends.CustomAuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+AUTH_USER_MODEL = 'accounts.Doctor' # new
