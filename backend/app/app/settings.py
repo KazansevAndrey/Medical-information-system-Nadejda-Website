@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'accounts',
+    'department',
 ]
 
 MIDDLEWARE = [
@@ -133,7 +134,7 @@ LOGIN_REDIRECT_URL = 'department:index'
 
 AUTHENTICATION_BACKENDS = [
     'accounts.backends.CustomAuthenticationBackend',
-    'django.contrib.auth.backends.ModelBackend',
+    
 ]
 
 AUTH_USER_MODEL = 'accounts.Doctor' # new

@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib import auth
 
 @login_required
 def redirect_view(request):
-	return redirect('/department')
+	return redirect('department:redirect')
 	
 def user_login(request):
     if request.method == 'POST':
