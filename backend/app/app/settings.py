@@ -130,11 +130,13 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'department:index'
+LOGIN_URL = 'accounts:login'
+
+
 
 AUTHENTICATION_BACKENDS = [
-    'accounts.backends.CustomAuthenticationBackend',
-    
+    'accounts.backends.CustomAdminBackend',
+    'accounts.backends.CustomUserBackend',
 ]
 
 AUTH_USER_MODEL = 'accounts.Doctor' # new
