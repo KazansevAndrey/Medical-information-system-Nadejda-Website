@@ -12,6 +12,6 @@ def view_department(request):
         print('пользователь не авторизован')
         return redirect(settings.LOGIN_URL)
     
-    context = {'title': 'Отделение'}
+    context = {'title': 'Отделение', 'doctor_name':'Имя доктора'}
     return render(request, 'department/department.html', context)
 

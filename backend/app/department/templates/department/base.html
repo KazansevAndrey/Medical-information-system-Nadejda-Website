@@ -1,0 +1,45 @@
+{%load static%}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    {%block style%}
+    {%endblock%}
+
+</head>
+<body>
+    <header>
+        <div style="flex-direction: row;width: 100%; max-width: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <img src="{% static "img/head-logo.png" %}" alt="logo" class="logo">
+            <form>
+                <label for="department-select">Ваше отделение</label>
+                <select name="department" id="department-select" class="ds-select">
+                    <option value="dep1">1 Выдуманное отделение</option>
+                    <option value="dep2">18 Невыдуманное отделение</option>
+                    <option value="dep3">Отделение на ленине</option>
+                    <option value="dep4">Прививочный центр</option>
+                </select>
+            </form>
+            <div style="position: relative; display: inline-block;">
+                <a href="#" class="dropdown-toggle"><i class="fa-solid fa-user-nurse doctor doctor-icon"></i><span>{{doctor_name}}</span></a>
+                <div class="dropdown-menu">
+                    <div class="doctor-name">{{doctor_name}}</div>
+                    <button class="logout-button">Выход</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        {%block content%}
+        {%endblock%}
+    </main>
+</body>
+{%block scripts%}
+{%endblock%}
+<script src="https://kit.fontawesome.com/09ef455c42.js" crossorigin="anonymous"></script>
+
+</html>

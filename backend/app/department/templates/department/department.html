@@ -1,33 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Department</title>
-    <link rel="stylesheet" href="/css/department.css">
-</head>
-<body>
-    <header>
-        <div style="flex-direction: row;width: 100%; max-width: 100%; display: flex; justify-content: space-between; align-items: center;">
-            <img src="/img/head-logo.png" alt="logo" class="logo">
-            <form>
-                <label for="department-select">Ваше отделение</label>
-                <select name="department" id="department-select" class="ds-select">
-                    <option value="dep1">1 Выдуманное отделение</option>
-                    <option value="dep2">18 Невыдуманное отделение</option>
-                    <option value="dep3">Отделение на ленине</option>
-                    <option value="dep4">Прививочный центр</option>
-                </select>
-            </form>
-            <div style="position: relative; display: inline-block;">
-                <a href="#" class="dropdown-toggle"><i class="fa-solid fa-user-nurse doctor doctor-icon"></i><span>Дуров Павел Валерьевич</span></a>
-                <div class="dropdown-menu">
-                    <div class="doctor-name">Дуров Павел Валерьевич</div>
-                    <button class="logout-button">Выход</button>
-                </div>
-            </div>
-        </div>
-    </header>
+{%extends 'department/base.html'%}
+{%load static%}
+
+{%block style%}
+<link rel="stylesheet" href={%static "css/department.css" %}>
+{%endblock%}
+
+{%block content%}
     <div class="block1">
         <div class="block2">
             <button class="btn_block2 active" id="all-patients-btn">Все пациенты</button>
@@ -60,7 +38,10 @@
             <span>28 лет, госпитализация: 18.10.2023 10:18</span>
         </div>
     </div>
-</body>
-<script src="/scripts/department.js"></script>
+{%endblock%}
+
+{%block scripts%}
+<script src="{%static "scripts/department.js"%}"></script>
 <script src="https://kit.fontawesome.com/09ef455c42.js" crossorigin="anonymous"></script>
-</html>
+{%endblock%}
+
