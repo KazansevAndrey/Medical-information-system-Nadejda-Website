@@ -7,8 +7,8 @@ def get_departments():
     return departments
 
 #Пациенты отделения
-def patients_of_department(department):
-    patients = Patient.objects.filter(department=department)
+def get_patients_of_department(department_id):
+    patients = Patient.objects.filter(department_id=department_id)
     return patients
 
  

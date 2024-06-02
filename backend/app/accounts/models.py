@@ -8,9 +8,9 @@ class Doctor(AbstractBaseUser, PermissionsMixin): # Таблица врача
     phone_number = models.CharField(max_length=15)
     position = models.CharField(max_length=100)
     password = models.CharField(max_length=4)
-    first_name = models.CharField(max_length=20, default='Имя')
-    last_name = models.CharField(max_length=20, default='Фамилия')
-    surname = models.CharField(max_length=20, default='Отчество')
+    first_name = models.CharField(max_length=20,)
+    last_name = models.CharField(max_length=20,)
+    surname = models.CharField(max_length=20,)
     email = models.EmailField(unique=True, null=True, blank=True)
     USERNAME_FIELD = 'iin'
     REQUIRED_FIELDS = ['phone_number', 'password', 'first_name', 'last_name', 'surname', 'position']
@@ -20,5 +20,5 @@ class Doctor(AbstractBaseUser, PermissionsMixin): # Таблица врача
     objects = DoctorManager()
 
     def __str__(self):
-        return f"{self.iin} - {self.position}"
+        return f"{self.last_name} {self.first_name} {self.surname}"
 

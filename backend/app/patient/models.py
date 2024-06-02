@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from department.models import Department
 from accounts.models import Doctor
 # Create your models here.
@@ -10,7 +11,7 @@ class Patient(models.Model): # Таблица пациента
     last_name = models.CharField(max_length=20, )
     surname = models.CharField(max_length=20, )
     birth_date = models.DateField()
-    receipt_date = models.DateField()
+    receipt_date = models.DateTimeField(default=timezone.now)
     gender_choices = [
         ('M', 'Мужчина'),
         ('Ж', 'Женщина'),

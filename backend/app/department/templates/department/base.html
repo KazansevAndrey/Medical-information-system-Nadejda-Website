@@ -17,11 +17,10 @@
             <img src="{% static "img/head-logo.png" %}" alt="logo" class="logo">
             <form>
                 <label for="department-select">Ваше отделение</label>
-                <select name="department" id="department-select" class="ds-select">
-                    <option value="dep1">1 Выдуманное отделение</option>
-                    <option value="dep2">18 Невыдуманное отделение</option>
-                    <option value="dep3">Отделение на ленине</option>
-                    <option value="dep4">Прививочный центр</option>
+                <select name="department" id="department-select" class="ds-select" onchange="ShowPatients()">
+                    {%for dep in departments%}
+                    <option value="{{dep.id}}">{{dep}}</option>
+                    {%endfor%}
                 </select>
             </form>
             <div style="position: relative; display: inline-block;">

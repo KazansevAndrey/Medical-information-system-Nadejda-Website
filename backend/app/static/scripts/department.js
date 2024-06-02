@@ -60,3 +60,6 @@ patientItems.forEach(patientItem => {
         this.style.backgroundColor = ''; // Возвращаем исходный фон при уходе курсора
     });
 });
+
+
+//AJAX запрос для получения пациентов
