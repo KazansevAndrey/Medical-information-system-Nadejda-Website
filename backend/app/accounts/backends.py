@@ -7,13 +7,11 @@ class CustomUserBackend(BaseBackend):
     def authenticate(self, request, username, phone_number, password):
         print(Doctor.objects.all())
         try:
-            print('Отработка проверки 1')
-           
+            
             doctor = Doctor.objects.get(iin=username, phone_number=phone_number, password=password)
             
-
             if doctor is not None:
-                print('Доктор прошел проверку')
+                
                 return doctor
             else:
                 return None

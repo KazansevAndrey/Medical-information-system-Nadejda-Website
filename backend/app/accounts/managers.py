@@ -2,7 +2,7 @@ from django.contrib.auth.models import BaseUserManager
 
 class DoctorManager(BaseUserManager):
 
-    def create_user(self, iin, phone_number, position, password):
+    def create_user(self, iin, phone_number,first_name, last_name, surname, position, password):
         if not iin:
             raise ValueError('ИИН обязательное поле')
         if not phone_number:
@@ -14,17 +14,23 @@ class DoctorManager(BaseUserManager):
             phone_number=phone_number,
             position=position,
             password=password,
+            first_name=first_name,
+            last_name=last_name,
+            surname=surname,
         )
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, iin, password, phone_number, position):
+    def create_superuser(self, iin, password, phone_number, first_name, last_name, surname, position):
         user = self.create_user(
             iin=iin,
             phone_number= phone_number,
             position=position,
             password=password,
+            first_name=first_name,
+            last_name=last_name,
+            surname=surname,
             
         )
         user.is_active = True
