@@ -1,6 +1,6 @@
 {%extends 'department/base.html'%}
 {%load static%}
-
+{% load custom_tags %}
 {%block style%}
 <link rel="stylesheet" href={%static "css/department.css" %}>
 {%endblock%}
@@ -20,13 +20,8 @@
         {%for patient in patients_of_department%}
             <div class="patient-item">
                 <span><i class="fa-solid fa-clipboard-user"></i>{{patient.last_name}} {{patient.first_name}} {{patient.surname}}</span>
-                <span>23 года, госпитализация: 25.08.2022 08:09</span>
-            </div>
-            <div class="patient-item">
-                <span><i class="fa-solid fa-clipboard-user"></i>  Ефимова Ирада Михайловна</span>
-                <span>44 года, госпитализация: 13.09.2022 08:50</span>
-            </div>
-            
+                <span>{{ patient.age }} {{ patient.age|age_pluralize }}, госпитализация: {{patient.receipt_date|date:"d.m.Y H:i"}}</span>
+            </div> 
         {%endfor%}
         </div>
    

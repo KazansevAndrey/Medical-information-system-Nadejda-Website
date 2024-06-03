@@ -4,11 +4,9 @@ from django.shortcuts import redirect
 from accounts import doctor_services
 from app import settings
 from .services import *
-from patient.services import get_patients_full_names
 # Create your views here.
 
 def view_department(request):
-    
     
     if not request.user.is_authenticated:
         print('пользователь не авторизован')
@@ -17,8 +15,9 @@ def view_department(request):
     departments = get_departments()
     first_department_id = get_first_department().pk
     patients_of_department = get_patients_of_department(first_department_id)
-    patients_full_names = get_patients_full_names(patients_of_department)
-    print(patients_full_names)
+    
+   
+  
     print(departments)
     doctor_name = doctor_services.get_doctor_full_name(request)
     context = {
@@ -26,6 +25,7 @@ def view_department(request):
         'patients_of_department': patients_of_department,
         'title': 'Отделение',
         'doctor_name':doctor_name, 
+        
     }
     return render(request, 'department/department.html', context)
 

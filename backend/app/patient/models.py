@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from department.models import Department
 from accounts.models import Doctor
+from datetime import date
 # Create your models here.
 class Patient(models.Model): # Таблица пациента
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
@@ -31,7 +32,12 @@ class Patient(models.Model): # Таблица пациента
     resperatory_rate = models.CharField(max_length=3)
     pressure = models.CharField(max_length=7)
     saturation = models.CharField(max_length=3)
-    
+
+    @property
+    def age(self):
+        today = date.today()
+        return today.year - self.birth_date.year - ((today.month, today.day) < (self.birth_date.month, self.birth_date.day))
+
     def __str__(self):
         return f"{self.last_name} {self.first_name} {self.surname}"
     

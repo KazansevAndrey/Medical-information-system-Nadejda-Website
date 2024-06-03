@@ -16,4 +16,12 @@ def get_patients_of_department(department_id):
     print(f"Пациенты отделения {department_id}", patients)
     return patients
 
+#Склонение возраста
+def age_pluralize(age):
+    if   age[-1] in '1':
+            return('год')
+    elif age[-1] in '234':
+        return('года')
+    else:
+            return('лет')
  
