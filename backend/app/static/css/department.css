@@ -169,6 +169,10 @@ label {
 .patient-list {
    padding: 0px 20px 0px 20px;
 }
+.my-patients{
+    padding: 0px 20px 0px 20px;
+    display: none;
+}
 .patient-item {
    display: flex;
    justify-content: space-between;
