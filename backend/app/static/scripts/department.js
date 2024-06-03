@@ -62,6 +62,4 @@ patientItems.forEach(patientItem => {
 });
 
 
-//AJAX запрос для получения пациентов
 
-ShowPatients()

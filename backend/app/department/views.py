@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.http import JsonResponse
+import json
 from accounts import doctor_services
 from app import settings
 from .services import *
@@ -27,3 +29,20 @@ def view_department(request):
     }
     return render(request, 'department/department.html', context)
 
+def fetch_patients(request):
+    if request.is_ajax():
+        department_id = request.GET.get('department_id')
+        patients_list = get_patients_of_department(department_id)
+        data = []
+        for patient in patients_list:
+            data.append({
+                'last_name': patient.last_name,
+                'first_name': patient.first_name,
+                'surname': patient.surname,
+                'age': patient.age,
+                'receipt_date': patient.receipt_date.strftime("%d.%m.%Y %H:%M"),
+        })
+        data = JSON.parse(data);
+
+        sent_data = {'patient_list': data}
+        return JsonResponse(sent_data)
