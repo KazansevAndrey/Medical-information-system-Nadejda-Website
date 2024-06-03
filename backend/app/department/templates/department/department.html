@@ -17,31 +17,22 @@
         </div>
     </div>
     <div class="patient-list">
-        <div class="patient-item">
-            <span><i class="fa-solid fa-clipboard-user"></i>  Константиновский Константин Константинович</span>
-            <span>23 года, госпитализация: 25.08.2022 08:09</span>
+        {%for patient in patients_of_department%}
+            <div class="patient-item">
+                <span><i class="fa-solid fa-clipboard-user"></i>{{patient.last_name}} {{patient.first_name}} {{patient.surname}}</span>
+                <span>23 года, госпитализация: 25.08.2022 08:09</span>
+            </div>
+            <div class="patient-item">
+                <span><i class="fa-solid fa-clipboard-user"></i>  Ефимова Ирада Михайловна</span>
+                <span>44 года, госпитализация: 13.09.2022 08:50</span>
+            </div>
+            
+        {%endfor%}
         </div>
-        <div class="patient-item">
-            <span><i class="fa-solid fa-clipboard-user"></i>  Ефимова Ирада Михайловна</span>
-            <span>44 года, госпитализация: 13.09.2022 08:50</span>
-        </div>
-        <div class="patient-item">
-            <span><i class="fa-solid fa-clipboard-user"></i>  Абабаева Алтынай Еслямовна</span>
-            <span>106 лет, госпитализация: 22.11.2022 09:58</span>
-        </div>
-        <div class="patient-item">
-            <span><i class="fa-solid fa-clipboard-user"></i>  Сидоров Владимир Геннадьевич</span>
-            <span>52 года, госпитализация: 04.02.2023 20:56</span>
-        </div>
-        <div class="patient-item">
-            <span><i class="fa-solid fa-clipboard-user"></i>  Погорелов Артём Юрьевич</span>
-            <span>28 лет, госпитализация: 18.10.2023 10:18</span>
-        </div>
-    </div>
+   
 {%endblock%}
 
 {%block scripts%}
 <script src="{%static "scripts/department.js"%}"></script>
-<script src="https://kit.fontawesome.com/09ef455c42.js" crossorigin="anonymous"></script>
 {%endblock%}
 

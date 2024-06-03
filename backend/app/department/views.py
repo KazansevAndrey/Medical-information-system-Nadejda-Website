@@ -3,7 +3,8 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from accounts import doctor_services
 from app import settings
-from .services import get_departments, get_patients_of_department
+from .services import *
+from patient.services import get_patients_full_names
 # Create your views here.
 
 def view_department(request):
@@ -14,9 +15,17 @@ def view_department(request):
         return redirect(settings.LOGIN_URL)
     
     departments = get_departments()
-    patients = get_patients_of_department()
+    first_department_id = get_first_department().pk
+    patients_of_department = get_patients_of_department(first_department_id)
+    patients_full_names = get_patients_full_names(patients_of_department)
+    print(patients_full_names)
     print(departments)
     doctor_name = doctor_services.get_doctor_full_name(request)
-    context = {'title': 'Отделение', 'doctor_name':doctor_name, 'departments':departments}
+    context = {
+        'departments':departments,
+        'patients_of_department': patients_of_department,
+        'title': 'Отделение',
+        'doctor_name':doctor_name, 
+    }
     return render(request, 'department/department.html', context)
 
