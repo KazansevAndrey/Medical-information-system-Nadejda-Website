@@ -16,8 +16,6 @@ def view_department(request):
     first_department_id = get_first_department().pk
     patients_of_department = get_patients_of_department(first_department_id)
     
-   
-  
     print(departments)
     doctor_name = doctor_services.get_doctor_full_name(request)
     context = {
