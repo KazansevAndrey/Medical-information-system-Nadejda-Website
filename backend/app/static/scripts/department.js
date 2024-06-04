@@ -87,4 +87,8 @@ myPatientsBtn.addEventListener('click', function() {
 });
 
 
+<<<<<<< HEAD
 //AJAX запрос для получения пациентов
+=======
+
+>>>>>>> 9f8266eba098339f1ec8aa4b1f0d8899e85e3887
