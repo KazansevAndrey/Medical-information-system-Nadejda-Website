@@ -1,12 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.shortcuts import redirect
-<<<<<<< HEAD
 from django.core import serializers
-=======
 from django.http import JsonResponse
 import json
->>>>>>> 9f8266eba098339f1ec8aa4b1f0d8899e85e3887
 from accounts import doctor_services
 from django.http import JsonResponse
 from app import settings
@@ -33,14 +30,6 @@ def view_department(request):
     }
     return render(request, 'department/department.html', context)
 
-<<<<<<< HEAD
-def view_selected_department(request, department_id):
-    if request.is_ajax():
-        patients_of_department = get_patients_of_department(department_id)
-        patient_serializers = serializers.serialize('json', patients_of_department)
-        return JsonResponse({patient_serializers})
-
-=======
 def fetch_patients(request):
     if request.is_ajax():
         department_id = request.GET.get('department_id')
@@ -54,8 +43,8 @@ def fetch_patients(request):
                 'age': patient.age,
                 'receipt_date': patient.receipt_date.strftime("%d.%m.%Y %H:%M"),
         })
-        data = JSON.parse(data);
+            
+
 
         sent_data = {'patient_list': data}
         return JsonResponse(sent_data)
->>>>>>> 9f8266eba098339f1ec8aa4b1f0d8899e85e3887

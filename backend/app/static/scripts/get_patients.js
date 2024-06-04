@@ -10,12 +10,13 @@ function ShowPatients(){
         },
         dataType: 'json',
         success: function(data) {
-            const container = $('.patients-list')
-            data.forEach(patient =>{
-
+            const container = $('.patient-list')
+            container.empty();
+            data.patient_list.forEach(function(patient){
+                console.log(patient)
                 html = `
                 <div class="patient-item">
-                <span><i class="fa-solid fa-clipboard-user"></i>${patient.last_name} ${patient.first_name} ${patient.surname}</span>
+                <span><i class="fa-solid fa-clipboard-user"></i> ${patient.last_name} ${patient.first_name} ${patient.surname}</span>
                 <span>${get_age(patient.age, ['год', 'года', 'лет'])}, госпитализация: ${patient.receipt_date}</span></div>`
                 container.append(html)
             })
