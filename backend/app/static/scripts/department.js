@@ -60,8 +60,31 @@ patientItems.forEach(patientItem => {
         this.style.backgroundColor = ''; // Возвращаем исходный фон при уходе курсора
     });
 });
+// Получаем элементы кнопок и блоков с пациентами
+const allPatientsBtn = document.getElementById('all-patients-btn');
+const myPatientsBtn = document.getElementById('my-patients-btn');
+const patientList = document.querySelector('.patient-list');
+const myPatients = document.querySelector('.my-patients');
+
+// Обработчик события для кнопки "Все пациенты"
+allPatientsBtn.addEventListener('click', function() {
+    // Показываем список всех пациентов и скрываем блок с моими пациентами
+    patientList.style.display = 'block';
+    myPatients.style.display = 'none';
+    // Добавляем/удаляем классы для стилизации кнопок
+    allPatientsBtn.classList.add('active');
+    myPatientsBtn.classList.remove('active');
+});
+
+// Обработчик события для кнопки "Мои пациенты"
+myPatientsBtn.addEventListener('click', function() {
+    // Показываем блок с моими пациентами и скрываем список всех пациентов
+    patientList.style.display = 'none';
+    myPatients.style.display = 'block';
+    // Добавляем/удаляем классы для стилизации кнопок
+    myPatientsBtn.classList.add('active');
+    allPatientsBtn.classList.remove('active');
+});
 
 
 //AJAX запрос для получения пациентов
-
-ShowPatients()

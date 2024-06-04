@@ -19,7 +19,7 @@
     <div class="patient-list">
         {%for patient in patients_of_department%}
             <div class="patient-item">
-                <span><i class="fa-solid fa-clipboard-user"></i>{{patient.last_name}} {{patient.first_name}} {{patient.surname}}</span>
+                <span><i style="margin-right: 5px;" class="fa-solid fa-clipboard-user"></i> {{patient.last_name}} {{patient.first_name}} {{patient.surname}}</span>
                 <span>{{ patient.age }} {{ patient.age|age_pluralize }}, госпитализация: {{patient.receipt_date|date:"d.m.Y H:i"}}</span>
             </div> 
         {%endfor%}
@@ -30,4 +30,3 @@
 {%block scripts%}
 <script src="{%static "scripts/department.js"%}"></script>
 {%endblock%}
-
