@@ -10,23 +10,34 @@ function ShowPatients(){
         },
         dataType: 'json',
         success: function(data) {
-            const container = $('.patient-list')
-            container.empty();
-            data.patient_list.forEach(function(patient){
+            
+            const dep_patients_container = $('.patient-list')
+            const doc_patients_container = $('.my-patients')
+            dep_patients_container.empty();
+            doc_patients_container.empty();
+            data.patients_of_department.forEach(function(patient){
                 console.log(patient)
-                html = `
+                patients_template = `
                 <div class="patient-item">
-                <span><i class="fa-solid fa-clipboard-user"></i> ${patient.last_name} ${patient.first_name} ${patient.surname}</span>
+                <span><i class="fa-solid fa-clipboard-user" style="margin-right: 10px;"></i>${patient.last_name} ${patient.first_name} ${patient.surname}</span>
                 <span>${get_age(patient.age, ['год', 'года', 'лет'])}, госпитализация: ${patient.receipt_date}</span></div>`
-                container.append(html)
+                dep_patients_container.append(patients_template)
             })
 
+            data.patients_of_doctor.forEach(function(patient){
+                console.log(patient)
+                patients_template = `
+                <div class="patient-item">
+                <span><i class="fa-solid fa-clipboard-user" style="margin-right: 10px;"></i>${patient.last_name} ${patient.first_name} ${patient.surname}</span>
+                <span>${get_age(patient.age, ['год', 'года', 'лет'])}, госпитализация: ${patient.receipt_date}</span></div>`
+                doc_patients_container.append(patients_template)
+            
+            })
             }
-
         })}
  
-
 function get_age(number, titles) {
     cases = [2, 0, 1, 1, 1, 2];
     return [number, titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ]].join(' ');
 }
+

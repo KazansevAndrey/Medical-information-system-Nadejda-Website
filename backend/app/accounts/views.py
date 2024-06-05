@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 from app import settings
 
 def redirect_view(request):
@@ -27,5 +28,7 @@ def user_login(request):
     else:
         return render(request, 'accounts/login.html')
     
+
 def user_logout(request):
-	pass
+    logout(request)
+    return redirect('/accounts/login')
