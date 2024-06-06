@@ -87,4 +87,3 @@ myPatientsBtn.addEventListener('click', function() {
 });
 
 
-

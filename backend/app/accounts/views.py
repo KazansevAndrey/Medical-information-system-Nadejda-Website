@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from app import settings
+from department.services import get_first_department
 
 def redirect_view(request):
     if not request.user.is_authenticated:
@@ -10,7 +11,13 @@ def redirect_view(request):
         return redirect(settings.LOGIN_URL)
     else:
         print('пользователь авторизован')
-        return redirect('department:department')
+        first_department = get_first_department()
+        if first_department:
+            return redirect('department:department', department_id='all')
+        else:
+         # Что то нужно показать если отделение нет
+            return None
+            
 	
 def user_login(request):
     if request.method == 'POST':

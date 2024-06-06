@@ -21,3 +21,7 @@ def get_patients_of_department(department_id):
 def get_patients_of_doctor(patients, request):
     print("Пациенты врача: ", patients.filter(doctor=request.user.pk))
     return patients.filter(doctor=request.user.pk)
+
+#Все пациеты
+def get_all_patients():
+    return Patient.objects.all()

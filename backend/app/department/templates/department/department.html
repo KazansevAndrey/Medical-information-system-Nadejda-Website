@@ -11,9 +11,9 @@
             <button class="btn_block2 active" id="all-patients-btn">Все пациенты</button>
             <button class="btn_block2" id="my-patients-btn">Мои пациенты</button> 
         </div>
-        <form class="input-group" action={% url "department:search" %}>
+        <form class="input-group" onsubmit="return false;">
             <input id="search-input" name="q" type="text" class="search" placeholder="Поиск пациента">
-            <button id="search-btn" type="submit" class="search-btn">Поиск</button>
+            <button id="search-btn" type="button" onclick="search_patients()" class="search-btn">Поиск</button>
         </form>
     </div>
     <div class="patient-list">
@@ -27,10 +27,10 @@
 
     <div class="my-patients">
         {%for patient in patients_of_doctor%}
-            <div class="patient-item">
+            <a class="patient-item">
                 <span><i style="margin-right: 10px;" class="fa-solid fa-clipboard-user"></i>{{patient.last_name}} {{patient.first_name}} {{patient.surname}}</span>
                 <span>{{ patient.age }} {{ patient.age|age_pluralize }}, госпитализация: {{patient.receipt_date|date:"d.m.Y H:i"}}</span>
-            </div> 
+            </a> 
         {%endfor%}
     </div>
 {%endblock%}
