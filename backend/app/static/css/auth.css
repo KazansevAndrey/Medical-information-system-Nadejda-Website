@@ -10,16 +10,17 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f2f5;
+    background-image: url('/img/15229725_v870-tang-39.jpg');
+    padding: 0px 20px;
 }
 
-.login-container {
+.loginForm {
     width: 100%;
     max-width: 400px;
     padding: 20px;
-    background: white;
+    background: white; /* Белый фон */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    border-radius: 8px; /* Закругленные края */
 }
 
 h2 {
@@ -32,24 +33,25 @@ form {
     display: flex;
     flex-direction: column;
 }
-
 label {
     color: #555;
 }
 
 input {
     width: 100%;
-    margin-bottom: 15px;
+    margin-top: 5px;
+    margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+    height: 40px;
 }
 
 button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #107b7d;
     border: none;
     border-radius: 4px;
     color: white;
@@ -58,5 +60,5 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #0d676fd3;
 }
