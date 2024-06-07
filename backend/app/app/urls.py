@@ -24,5 +24,5 @@ urlpatterns = [
 
     path('department/', include('department.urls', namespace='department')),
 
-    path('department/<int:department_id>/patient/', include('patient.urls', namespace='patient')),
+    path('patient/', include('patient.urls', namespace='patient')),
 ]

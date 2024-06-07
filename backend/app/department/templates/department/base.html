@@ -1,6 +1,5 @@
 {%load static%}
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,28 +14,8 @@
 
 </head>
 <body>
-    <header>
-        <div style="flex-direction: row;width: 100%; max-width: 100%; display: flex; justify-content: space-between; align-items: center;">
-            <img src="{% static "img/head-logo.png" %}" alt="logo" class="logo">
-            <form>
-                <label for="department-select">Ваши отделения</label>
-                <select name="department" id="department-select" class="ds-select" onchange="ShowPatients()">
-                    <option value="all" {% if current_department_id == 'all' %}selected{% endif %}>Все отделения</option>
-                    {% for dep in departments %}
-                    <option value="{{ dep.id }}" {% if dep.id == current_department_id %}selected{% endif %}>{{ dep }}</option>
-                    {% endfor %}
-                </select>
-            </form>
-            <div style="position: relative; display: inline-block;">
-                <a href="#" class="dropdown-toggle"><i class="fa-solid fa-user-nurse doctor doctor-icon"></i><span>{{doctor_name}}</span></a>
-                <div class="dropdown-menu">
-                    <div class="doctor-name">{{doctor_name}}</div>
-                    <button href="{% url 'accounts:logout' %}  "class="logout-button" onclick="Exit()" >Выход</button>
-                    
-                </div>
-            </div>
-        </div>
-    </header>
+    {%block header%}
+    {%endblock%}
     <main>
         {%block content%}
         {%endblock%}
