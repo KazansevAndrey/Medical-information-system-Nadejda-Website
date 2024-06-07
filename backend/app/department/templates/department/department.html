@@ -54,7 +54,7 @@
         {%for patient in patients_of_doctor%}
             <a class="patient-item">
                 <span><i style="margin-right: 10px;" class="fa-solid fa-clipboard-user"></i>{{patient.last_name}} {{patient.first_name}} {{patient.surname}}</span>
-                <span>{{ patient.age }} {{ patient.age|age_pluralize }}, госпитализация: {{patient.receipt_date|date:"d.m.Y H:i"}}</span>
+                <span id="shadow">{{ patient.age }} {{ patient.age|age_pluralize }}, госпитализация: {{patient.receipt_date|date:"d.m.Y H:i"}}</span>
             </a> 
         {%endfor%}
     </div>
