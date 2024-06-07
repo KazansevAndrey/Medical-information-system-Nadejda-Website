@@ -31,7 +31,8 @@
                 <a href="#" class="dropdown-toggle"><i class="fa-solid fa-user-nurse doctor doctor-icon"></i><span>{{doctor_name}}</span></a>
                 <div class="dropdown-menu">
                     <div class="doctor-name">{{doctor_name}}</div>
-                    <button href="{% url 'accounts:logout' %}  "class="logout-button" >Выход</button>
+                    <button href="{% url 'accounts:logout' %}  "class="logout-button" onclick="Exit()" >Выход</button>
+                    
                 </div>
             </div>
         </div>
@@ -44,5 +45,5 @@
 {%block scripts%}
 {%endblock%}
 <script src="https://kit.fontawesome.com/09ef455c42.js" crossorigin="anonymous"></script>
-
+<script src="{%static 'scripts/logout.js'%}"></script>
 </html>

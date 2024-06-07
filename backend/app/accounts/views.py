@@ -29,7 +29,7 @@ def user_login(request):
         if user is not None:
             login(request, user)  # Аутентификация пользователя
             print("процесс аутентефикации", user.is_authenticated)
-            return redirect('department:department')
+            return redirect('department:department', department_id='all')
         else:
             return render(request, 'accounts/login.html', {'error_message': 'Неверные учетные данные'})
     else:

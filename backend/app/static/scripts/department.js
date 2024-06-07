@@ -42,15 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
 const patientItems = document.querySelectorAll('.patient-item');
 
 patientItems.forEach(patientItem => {
-    patientItem.addEventListener('click', function() {
-        // Получаем имя пациента для использования в URL новой страницы
-        const patientName = this.querySelector('span').textContent;
-        // Формируем URL для перехода на другую страницу с подробной информацией о пациенте
-        const newPageURL = 'patient_details.html?name=' + encodeURIComponent(patientName);
-        // Перенаправляем на новую страницу
-        window.location.href = newPageURL;
-    });
-
     // Добавляем стили для изменения внешнего вида курсора при наведении на пациента
     patientItem.style.cursor = 'pointer';
     patientItem.addEventListener('mouseenter', function() {

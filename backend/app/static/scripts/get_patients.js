@@ -62,9 +62,9 @@ function search_patients(){
             data.patients_of_department.forEach(function(patient){
                 console.log(patient)
                 patients_template = `
-                <div class="patient-item">
+                <a class="patient-item">
                 <span><i class="fa-solid fa-clipboard-user" style="margin-right: 10px;"></i>${patient.last_name} ${patient.first_name} ${patient.surname}</span>
-                <span>${get_age(patient.age, ['год', 'года', 'лет'])}, госпитализация: ${patient.receipt_date}</span></div>`
+                <span>${get_age(patient.age, ['год', 'года', 'лет'])}, госпитализация: ${patient.receipt_date}</span></a>`
                 depPatientsContainer.append(patients_template)
             
             })
@@ -72,9 +72,9 @@ function search_patients(){
             data.patients_of_doctor.forEach(function(patient){
                 console.log(patient)
                 patients_template = `
-                <div class="patient-item">
+                <a class="patient-item">
                 <span><i class="fa-solid fa-clipboard-user" style="margin-right: 10px;"></i>${patient.last_name} ${patient.first_name} ${patient.surname}</span>
-                <span>${get_age(patient.age, ['год', 'года', 'лет'])}, госпитализация: ${patient.receipt_date}</span></div>`
+                <span>${get_age(patient.age, ['год', 'года', 'лет'])}, госпитализация: ${patient.receipt_date}</span></a>`
                 docPatientsContainer.append(patients_template)
             });
         }

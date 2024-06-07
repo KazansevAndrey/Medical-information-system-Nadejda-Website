@@ -1,0 +1,463 @@
+{%extends "department/base.html"}
+{%load static%}
+{% load custom_tags %}
+{%block style%}
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+integrity="sha512-6o3tPtQyASQw5kF5tReF6U3bJ0PLyp7ZnN5CQe5eBbm9FSuF9hXnO/GJS2doq5F4DlYbKN8cdSGcuW2meGwMZg=="
+crossorigin="anonymous"
+referrerpolicy="no-referrer"
+/>
+<link rel="stylesheet" href="/css/medcard.css">
+{%endblock%}
+{%block header%}
+<header>
+  <div style="flex-direction: row;width: 100%; max-width: 100%; display: flex; justify-content: space-between; align-items: center;">
+      <a href="department.html"><img src="/img/head-logo.png" alt="logo" class="logo"></a>
+      <form>
+          <label for="department-select">Ваше отделение</label>
+          <select name="department" id="department-select" class="ds-select">
+              <option value="dep1">Все отделения</option>
+              <option value="dep2">Онкологическое отделение</option>
+              <option value="dep3">Отделение хирургии</option>
+              <option value="dep4">Прививочный центр</option>
+              <option value="dep5">Наркологическое отделение</option>
+          </select>
+      </form>
+      <div style="position: relative; display: inline-block;">
+          <a href="#" class="dropdown-toggle"><i class="fa-solid fa-user-nurse doctor doctor-icon"></i><span class="doctor-name">Дуров Павел Валерьевич</span></a>
+          <div class="dropdown-menu">
+              <div class="doctor-name">Дуров Павел Валерьевич</div>
+              <button class="logout-button" onclick="Exit()">Выход</button>
+          </div>
+      </div>
+  </div>
+</header>
+{%endblock%}
+{%block content%}
+
+    <div class="block1">
+      <div class="block2">
+        <button class="btn_block2 active" id="all-patients-btn" onclick="showContent('content1')">Данные</button>
+        <button class="btn_block2" id="my-patients-btn" onclick="showContent('content2')">Медицинские записи</button>
+      </div>
+    </div>
+    <div id="content1" class="content1 active">
+      <div class="status">
+        <span>Константиновский Константин Константинович, 23 года</span> <br />
+        <span id="status">Статус МК: </span><span class="status-open" id="status">Открыта</span>
+      </div>
+      <div class="info-section">
+        <div class="section-title">Информация о пациенте</div>
+        <div class="info-block">
+          <div>
+            <i class="fas fa-calendar-alt"></i>
+            <span class="span_pokaz">Дата рождения: <span class="span_rez">17.05.2001</span></span>
+          </div>
+          <div>
+            <i class="fas fa-id-card"></i> <span class="span_pokaz">ИИН: <span class="span_rez">010517651393</span></span>
+          </div>
+        </div>
+        <div class="info-block">
+          <div>
+            <i class="fas fa-info-circle"></i> <span class="span_pokaz">Номер МК: <span class="span_rez">28</span></span>
+          </div>
+          <div><i class="fas fa-venus-mars"></i> <span class="span_pokaz">Пол: <span class="span_rez"> М </span></span></div>
+        </div>
+        <div class="info-block">
+          <div>
+            <i class="fas fa-ruler-vertical"></i> <span class="span_pokaz">Рост: <span class="span_rez"> 175 см</span></span>
+          </div>
+          <div><i class="fas fa-weight"></i> <span class="span_pokaz">Вес: <span class="span_rez"> 72 кг</span></span></div>
+        </div>
+      </div>
+      <div class="warning-section">
+        <div class="section-title">Предупреждения</div>
+        <div class="btn-wrapper">
+          <button class="btn_in2" style="background: #f80202b9">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>В реанимации</span>
+          </button>
+          <button class="btn_in2" onclick="information_hospitals()">
+            <i class="fas fa-hospital"></i>
+            <span>Данные о госпитализации</span>
+          </button>
+          <button class="btn_in2" onclick="archive_medcards()">
+            <i class="fas fa-folder-open"></i>
+            <span>Архивные мед. карты</span>
+          </button>
+        </div>
+      </div>
+      <div class="measurements-section">
+        <div class="section-title">Показатели</div>
+        <div class="info-block">
+          <div>
+            <i class="fas fa-thermometer-half"></i>
+            <span class="span_pokaz">Температура: <span class="span_rez"> 36.6</span></span>
+          </div>
+          <div><i class="fas fa-heartbeat"></i> <span class="span_pokaz">АД: <span class="span_rez"> 120/80 </span></span></div>
+        </div>
+        <div class="info-block">
+          <div><i class="fas fa-heart"></i> <span class="span_pokaz">ЧСС: <span class="span_rez"> 70 </span></span></div>
+          <div><i class="fas fa-tint"></i> <span class="span_pokaz">Сатурация: <span class="span_rez"> - </span></span></div>
+        </div>
+        <div class="info-block">
+          <div><i class="fas fa-lungs"></i> <span class="span_pokaz">ЧДД: <span class="span_rez"> - </span></span></div>
+          <div><i class="fas fa-hashtag"></i> <span class="span_pokaz">Выпускники: <span class="span_rez"> 0 </span></span></div>
+        </div>
+      </div>
+    </div>
+    <div id="content2" class="content2">
+      <div class="forms">
+        <form class="form_class">
+          <select name="categories" id="categories" class="ds-select">
+            <option value="">Все</option>
+            <option value="1">Анализы</option>
+            <option value="2">Выбор 2</option>
+          </select>
+        </form>
+        <form class="form_class">
+          <select name="data_select" id="data_select" class="ds-select">
+            <option value="">За все время</option>
+            <option value="1">Сегодня</option>
+            <option value="2">Вчера</option>
+            <option value="3">Последние 2 дня</option>
+          </select>
+        </form>
+        <form class="form_class">
+          <select name="categories_select" id="categories_select" class="ds-select" onchange="showContent2(this.value)">
+            <option value="">Категории</option>
+            <option value="1">По категориям</option>
+            <option value="2">По хронологии</option>
+          </select>
+        </form>
+      </div>
+      <div class="input-group">
+        <input id="search-input" type="search" class="search" placeholder="Поиск анализа"/>
+        <button id="search-btn" type="button" class="search-btn">Поиск</button>
+      </div>
+      <div id="content11" class="content11">
+        <div class="buttons-vertical">
+          <div class="button" onclick="toggleDropdown1('dropdown1')">
+            <span class="button-title">Результаты анализов</span>
+            <span class="button-count">(3)</span>
+          </div>
+          <div id="dropdown1" class="dropdown1">
+            <div class="dropdown-item" onclick="analyzes('d1')" id="d1">
+              <div class="span-column">
+                <span class="item-title">Глюкоза (сахар в крови)</span>
+                <span class="item-date">01.01.2023</span>
+              </div>
+              <i class="fa-solid fa-arrow-right awesome"></i>
+            </div>
+            <div class="dropdown-item" onclick="analyzes('d2')" id="d2">
+              <div class="span-column">
+                <span class="item-title">Общий анализ крови 3 параметра</span>
+                <span class="item-date">02.01.2023</span>
+              </div>
+              <i class="fa-solid fa-arrow-right awesome"></i>
+            </div>
+            <div class="dropdown-item" onclick="analyzes('d3')" id="d3">
+              <div class="span-column">
+                <span class="item-title">Исследование кала на простейшие и гельминты</span>
+                <span class="item-date">02.01.2023</span>
+              </div>
+              <i class="fa-solid fa-arrow-right awesome"></i>
+            </div>
+          </div>
+          <div class="button" onclick="toggleDropdown1('dropdown2')">
+            <span class="button-title">Первичный осмотр</span>
+            <span class="button-count">(3)</span>
+          </div>
+          <div id="dropdown2" class="dropdown1">
+            <div class="dropdown-item" onclick="inspections('d4')" id="d4">
+              <div class="span-column">
+                <span class="item-title">Первичный осмотр</span>
+                <span class="item-date">03.01.2023</span>
+              </div>
+              <i class="fa-solid fa-arrow-right awesome"></i>
+            </div>
+            <div class="dropdown-item" onclick="inspections('d5')" id="d5">
+              <div class="span-column">
+                <span class="item-title">Первичный осмотр</span>
+                <span class="item-date">04.01.2023</span>
+              </div>
+              <i class="fa-solid fa-arrow-right awesome"></i>
+            </div>
+            <div class="dropdown-item" onclick="inspections('d6')" id="d6">
+              <div class="span-column">
+                <span class="item-title">Первичный осмотр</span>
+                <span class="item-date">02.01.2023</span>
+              </div>
+              <i class="fa-solid fa-arrow-right awesome"></i>
+            </div>
+          </div>
+          <div class="button" onclick="toggleDropdown1('dropdown3')">
+            <span class="button-title">Диагнозы</span>
+            <span class="button-count">(3)</span>
+          </div>
+          <div id="dropdown3" class="dropdown1">
+            <div class="dropdown-item" onclick="diagnoses('d7')" id="d7">
+              <div class="span-column">
+                <span class="item-title">(T000) Поверхностные травмы шеи</span>
+                <span class="item-date">03.01.2023</span>
+                <span class="item-date">Заключительный</span>
+              </div>
+              <i class="fa-solid fa-arrow-right awesome"></i>
+            </div>
+            <div class="dropdown-item" onclick="diagnoses('d8')" id="d8">
+              <div class="span-column">
+                <span class="item-title">(В002) Герпетический гингивостоматит и фаринготонзиллит</span>
+                <span class="item-date">04.01.2023</span>
+                <span class="item-date">Заключительный</span>
+              </div>
+              <i class="fa-solid fa-arrow-right awesome"></i>
+            </div>
+            <div class="dropdown-item" onclick="diagnoses('d9')" id="d9">
+              <div class="span-column">
+                <span class="item-title">(F03.1) Пресенильная деменция неуточненная</span>
+                <span class="item-date">02.01.2023</span>
+                <span class="item-date">Заключительный</span>
+              </div>
+              <i class="fa-solid fa-arrow-right awesome"></i>
+            </div>
+          </div>
+          <div class="button" onclick="toggleDropdown1('dropdown4')">
+            <span class="button-title">Дневники</span>
+            <span class="button-count">(3)</span>
+          </div>
+          <div id="dropdown4" class="dropdown1">
+            <div class="dropdown-item" onclick="diaries('d10')" id="d10">
+              <div class="span-column">
+                <span class="item-title">03.06.2024 11:07</span>
+                <span class="item-date">Пока живой</span>
+              </div>
+              <i class="fa-solid fa-arrow-right awesome"></i>
+            </div>
+            <div class="dropdown-item" onclick="diaries('d11')" id="d11">
+              <div class="span-column">
+                <span class="item-title">03.06.2024 11:07</span>
+                <span class="item-date">Таблетки</span>
+              </div>
+              <i class="fa-solid fa-arrow-right awesome"></i>
+            </div>
+            <div class="dropdown-item" onclick="diaries('d12')" id="d12">
+              <div class="span-column">
+                <span class="item-title">03.06.2024 11:07</span>
+                <span class="item-date">Все норм</span>
+              </div>
+              <i class="fa-solid fa-arrow-right awesome"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="content12" class="content12">
+        <div class="buttons-vertical">
+          <div class="dropdown-item" onclick="diagnoses('d1')" id="d1">
+            <div class="span-column1">
+              <span class="item-title">(F03.1) Пресенильная деменция неуточненная</span>
+              <span class="item-date">02.01.2023</span>
+              <span class="item-date">Заключительный</span>
+            </div>
+            <i class="fa-solid fa-arrow-right awesome"></i>
+          </div>
+          <div class="dropdown-item" onclick="diaries('d2')" id="d2">
+            <div class="span-column1">
+              <span class="item-title">Дневник</span>
+              <span class="item-date">03.06.2024 11:07</span>
+              <span class="item-date">Все норм</span>
+            </div>
+            <i class="fa-solid fa-arrow-right awesome"></i>
+          </div>
+          <div class="dropdown-item" onclick="diagnoses('d3')" id="d3">
+            <div class="span-column1">
+              <span class="item-title">(В002) Герпетический гингивостоматит и фаринготонзиллит</span>
+              <span class="item-date">04.01.2023</span>
+              <span class="item-date">Заключительный</span>
+            </div>
+            <i class="fa-solid fa-arrow-right awesome"></i>
+          </div>
+          <div class="dropdown-item" onclick="diaries('d4')" id="d4">
+            <div class="span-column1">
+              <span class="item-title">Дневник</span>
+              <span class="item-date">03.06.2024 11:07</span>
+              <span class="item-date">Все норм</span>
+            </div>
+            <i class="fa-solid fa-arrow-right awesome"></i>
+          </div>
+          <div class="dropdown-item" onclick="analyzes('d5')" id="d5">
+            <div class="span-column1">
+              <span class="item-title">Глюкоза (сахар в крови)</span>
+              <span class="item-date">01.01.2023</span>
+            </div>
+            <i class="fa-solid fa-arrow-right awesome"></i>
+          </div>
+          <div class="dropdown-item" onclick="diagnoses('d6')" id="d6">
+            <div class="span-column1">
+              <span class="item-title">(T000) Поверхностные травмы шеи</span>
+              <span class="item-date">03.01.2023</span>
+              <span class="item-date">Заключительный</span>
+            </div>
+            <i class="fa-solid fa-arrow-right awesome"></i>
+          </div>
+          <div class="dropdown-item" onclick="inspections('d7')" id="d7">
+            <div class="span-column1">
+              <span class="item-title">Первичный осмотр</span>
+              <span class="item-date">03.06.2024 11:07</span>
+            </div>
+            <i class="fa-solid fa-arrow-right awesome"></i>
+          </div>
+          <div class="dropdown-item" onclick="diaries('d8')" id="d8">
+            <div class="span-column1">
+              <span class="item-title">Дневник</span>
+              <span class="item-date">03.06.2024 11:07</span>
+              <span class="item-date">Все норм</span>
+            </div>
+            <i class="fa-solid fa-arrow-right awesome"></i>
+          </div>
+          <div class="dropdown-item" onclick="inspections('d9')" id="d9">
+            <div class="span-column1">
+              <span class="item-title">Первичный осмотр</span>
+              <span class="item-date">03.06.2024 11:07</span>
+            </div>
+            <i class="fa-solid fa-arrow-right awesome"></i>
+          </div>
+          <div class="dropdown-item" onclick="analyzes('d10')" id="d10">
+            <div class="span-column1">
+              <span class="item-title">Исследование кала на простейшие и гельминты</span>
+              <span class="item-date">02.01.2023</span>
+            </div>
+            <i class="fa-solid fa-arrow-right awesome"></i>
+          </div>
+          <div class="dropdown-item" onclick="inspections('d11')" id="d11">
+            <div class="span-column1">
+              <span class="item-title">Первичный осмотр</span>
+              <span class="item-date">03.06.2024 11:07</span>
+            </div>
+            <i class="fa-solid fa-arrow-right awesome"></i>
+          </div>
+          <div class="dropdown-item" onclick="analyzes('d12')" id="d12">
+            <div class="span-column1">
+              <span class="item-title">Общий анализ крови 3 параметра</span>
+              <span class="item-date">02.01.2023</span>
+            </div>
+            <i class="fa-solid fa-arrow-right awesome"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+{%endblock%}
+{%block scripts%}
+    <script>
+      function gotodep() {
+        window.location.href = "department.html";
+      }
+      function information_hospitals() {
+        window.location.href = "information_hospitals.html";
+      }
+      function archive_medcards() {
+        window.location.href = "archive_medcards.html";
+      }
+      function analyzes(id) {
+    window.location.href = "analyzs.html?id=" + id;
+  }
+      function inspections(id) {
+        window.location.href = "inspections.html?id=" + id;
+      }
+      function diaries(id) {
+        window.location.href = "diaries.html?id=" + id;
+      }
+      function diagnoses(id) {
+        window.location.href = "diagnoses.html?id=" + id;
+      }
+
+      function showContent(contentId) {
+        document.querySelectorAll(".content1, .content2").forEach((content) => {
+          content.classList.remove("active");
+        });
+        document.getElementById(contentId).classList.add("active");
+
+        document.querySelectorAll(".btn_block2").forEach((button) => {
+          button.classList.remove("active");
+        });
+        document
+          .querySelector(`[onclick="showContent('${contentId}')"]`)
+          .classList.add("active");
+      }
+
+      const buttons = document.querySelectorAll(".btn_block2");
+      buttons.forEach((button) => {
+        button.addEventListener("click", function () {
+          buttons.forEach((btn) => btn.classList.remove("active"));
+          this.classList.add("active");
+        });
+      });
+      function toggleDropdown1(id) {
+        var dropdown = document.getElementById(id);
+        dropdown.style.display =
+          dropdown.style.display === "flex" ? "none" : "flex";
+      }
+
+      function showContent(contentId) {
+        document.querySelectorAll(".content1, .content2").forEach((content) => {
+          content.classList.remove("active");
+        });
+        document.getElementById(contentId).classList.add("active");
+
+        document.querySelectorAll(".btn_block2").forEach((button) => {
+          button.classList.remove("active");
+        });
+        document
+          .querySelector(`[onclick="showContent('${contentId}')"]`)
+          .classList.add("active");
+      }
+
+      function showContent2(option) {
+        document.getElementById("content11").style.display =
+          option == 1 ? "block" : "none";
+        document.getElementById("content12").style.display =
+          option == 2 ? "block" : "none";
+      }
+        // Функция для открытия модального окна
+  function openPopup(id) {
+    var popup = document.getElementById(id);
+    if (popup) {
+      popup.style.display = "block";
+    }
+  }
+
+  // Функция для закрытия модального окна
+  function closePopup(id) {
+    var popup = document.getElementById(id);
+    if (popup) {
+      popup.style.display = "none";
+    }
+  }
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    const doctorIcon = document.querySelector('.doctor');
+
+    dropdownToggle.addEventListener('click', function(event) {
+        event.preventDefault();
+        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+  });
+  function Exit() {
+    window.location.href = "index.html";
+  }
+    </script>
+    <script
+      src="https://kit.fontawesome.com/09ef455c42.js"
+      crossorigin="anonymous"
+    ></script>
+{%endblock%}
+
