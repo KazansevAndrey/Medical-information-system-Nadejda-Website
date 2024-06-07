@@ -29,6 +29,9 @@ body {
     margin-left: 20px;
     margin-top: -1px;
  }
+#shadow{
+   color: #333333c4;
+}
  .search {
     border: 1px solid #ced4da;
     border-radius: 4px;
