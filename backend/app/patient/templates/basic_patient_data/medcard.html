@@ -1,42 +1,30 @@
-{%extends "department/base.html"}
+{%extends "department/base.html"%}
 {%load static%}
 {% load custom_tags %}
 {%block style%}
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-integrity="sha512-6o3tPtQyASQw5kF5tReF6U3bJ0PLyp7ZnN5CQe5eBbm9FSuF9hXnO/GJS2doq5F4DlYbKN8cdSGcuW2meGwMZg=="
-crossorigin="anonymous"
-referrerpolicy="no-referrer"
-/>
-<link rel="stylesheet" href="/css/medcard.css">
+<link href={% static "/img/app-icon-all.png"%} rel="shortcut icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-6o3tPtQyASQw5kF5tReF6U3bJ0PLyp7ZnN5CQe5eBbm9FSuF9hXnO/GJS2doq5F4DlYbKN8cdSGcuW2meGwMZg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+<link rel="stylesheet" href={% static "css/medcard.css"%}>
 {%endblock%}
 {%block header%}
-<header>
-  <div style="flex-direction: row;width: 100%; max-width: 100%; display: flex; justify-content: space-between; align-items: center;">
-      <a href="department.html"><img src="/img/head-logo.png" alt="logo" class="logo"></a>
-      <form>
-          <label for="department-select">Ваше отделение</label>
-          <select name="department" id="department-select" class="ds-select">
-              <option value="dep1">Все отделения</option>
-              <option value="dep2">Онкологическое отделение</option>
-              <option value="dep3">Отделение хирургии</option>
-              <option value="dep4">Прививочный центр</option>
-              <option value="dep5">Наркологическое отделение</option>
-          </select>
-      </form>
-      <div style="position: relative; display: inline-block;">
-          <a href="#" class="dropdown-toggle"><i class="fa-solid fa-user-nurse doctor doctor-icon"></i><span class="doctor-name">Дуров Павел Валерьевич</span></a>
-          <div class="dropdown-menu">
-              <div class="doctor-name">Дуров Павел Валерьевич</div>
-              <button class="logout-button" onclick="Exit()">Выход</button>
-          </div>
-      </div>
-  </div>
+  <header>     
+      <a href="{% url 'department:department' 'all'%}"><i class="fa-solid fa-arrow-right-from-bracket"id="exit"></i></a>
+      <div style="flex-direction: row;width: 100%; max-width: 100%; display: flex; justify-content: space-between; align-items: center;">
+      <a href="{% url 'department:department' 'all'%}"><img src="{% static 'img/head-logo.png'%}" alt="logo" class="logo"></a>
+<form>
+  <p>Ваше отделение: {{department.name}}</p>
+</form>
+        <div style="position: relative; display: inline-block;">
+            <a href="#" class="dropdown-toggle"><i class="fa-solid fa-user-nurse doctor doctor-icon"></i><span class="doctor-name">{{doctor_name}}</span></a>
+            <div class="dropdown-menu">
+                <div class="doctor-name">{{doctor_name}}</div>
+                <button class="logout-button" onclick="Exit()">Выход</button>
+            </div>
+        </div>
+    </div>
 </header>
 {%endblock%}
 {%block content%}
-
     <div class="block1">
       <div class="block2">
         <button class="btn_block2 active" id="all-patients-btn" onclick="showContent('content1')">Данные</button>
@@ -45,7 +33,7 @@ referrerpolicy="no-referrer"
     </div>
     <div id="content1" class="content1 active">
       <div class="status">
-        <span>Константиновский Константин Константинович, 23 года</span> <br />
+        <span>{{patient.last_name}} {{patient.first_name}} {{patient.surname}}, {{ patient.age }} {{ patient.age|age_pluralize}}</span> <br />
         <span id="status">Статус МК: </span><span class="status-open" id="status">Открыта</span>
       </div>
       <div class="info-section">
@@ -53,29 +41,29 @@ referrerpolicy="no-referrer"
         <div class="info-block">
           <div>
             <i class="fas fa-calendar-alt"></i>
-            <span class="span_pokaz">Дата рождения: <span class="span_rez">17.05.2001</span></span>
+            <span class="span_pokaz">Дата рождения: <span class="span_rez">{{patient.birth_date}}</span></span>
           </div>
           <div>
-            <i class="fas fa-id-card"></i> <span class="span_pokaz">ИИН: <span class="span_rez">010517651393</span></span>
+            <i class="fas fa-id-card"></i> <span class="span_pokaz">ИИН: <span class="span_rez">{{patient.iin}}</span></span>
           </div>
         </div>
         <div class="info-block">
           <div>
-            <i class="fas fa-info-circle"></i> <span class="span_pokaz">Номер МК: <span class="span_rez">28</span></span>
+            <i class="fas fa-info-circle"></i> <span class="span_pokaz">Номер МК: <span class="span_rez">{{med_card.med_card_number}}</span></span>
           </div>
-          <div><i class="fas fa-venus-mars"></i> <span class="span_pokaz">Пол: <span class="span_rez"> М </span></span></div>
+          <div><i class="fas fa-venus-mars"></i> <span class="span_pokaz">Пол: <span class="span_rez"> {{patient.gender}} </span></span></div>
         </div>
         <div class="info-block">
           <div>
-            <i class="fas fa-ruler-vertical"></i> <span class="span_pokaz">Рост: <span class="span_rez"> 175 см</span></span>
+            <i class="fas fa-ruler-vertical"></i> <span class="span_pokaz">Рост: <span class="span_rez"> {{metricks.height}} см</span></span>
           </div>
-          <div><i class="fas fa-weight"></i> <span class="span_pokaz">Вес: <span class="span_rez"> 72 кг</span></span></div>
+          <div><i class="fas fa-weight"></i> <span class="span_pokaz">Вес: <span class="span_rez"> {{metricks.weight}} кг</span></span></div>
         </div>
       </div>
       <div class="warning-section">
         <div class="section-title">Предупреждения</div>
         <div class="btn-wrapper">
-          <button class="btn_in2" style="background: #f80202b9">
+          <button class="btn_in2 reanimation" style="background: #f80202b9"> <!-- у реаниматион менять дисплей ноне если он не в реанимации, дисплей флекс если в реанимации-->
             <i class="fas fa-exclamation-triangle"></i>
             <span>В реанимации</span>
           </button>
@@ -94,16 +82,16 @@ referrerpolicy="no-referrer"
         <div class="info-block">
           <div>
             <i class="fas fa-thermometer-half"></i>
-            <span class="span_pokaz">Температура: <span class="span_rez"> 36.6</span></span>
+            <span class="span_pokaz">Температура: <span class="span_rez"> {{metricks.temperatury}}</span></span>
           </div>
-          <div><i class="fas fa-heartbeat"></i> <span class="span_pokaz">АД: <span class="span_rez"> 120/80 </span></span></div>
+          <div><i class="fas fa-heartbeat"></i> <span class="span_pokaz">АД: <span class="span_rez"> {{metricks.pressure}} </span></span></div>
         </div>
         <div class="info-block">
-          <div><i class="fas fa-heart"></i> <span class="span_pokaz">ЧСС: <span class="span_rez"> 70 </span></span></div>
-          <div><i class="fas fa-tint"></i> <span class="span_pokaz">Сатурация: <span class="span_rez"> - </span></span></div>
+          <div><i class="fas fa-heart"></i> <span class="span_pokaz">ЧСС: <span class="span_rez"> {{metricks.puls}} </span></span></div>
+          <div><i class="fas fa-tint"></i> <span class="span_pokaz">Сатурация: <span class="span_rez"> {{metricks.saturation}} </span></span></div>
         </div>
         <div class="info-block">
-          <div><i class="fas fa-lungs"></i> <span class="span_pokaz">ЧДД: <span class="span_rez"> - </span></span></div>
+          <div><i class="fas fa-lungs"></i> <span class="span_pokaz">ЧДД: <span class="span_rez"> {{metricks.resperatory_rate}} </span></span></div>
           <div><i class="fas fa-hashtag"></i> <span class="span_pokaz">Выпускники: <span class="span_rez"> 0 </span></span></div>
         </div>
       </div>
@@ -349,115 +337,6 @@ referrerpolicy="no-referrer"
     </div>
 {%endblock%}
 {%block scripts%}
-    <script>
-      function gotodep() {
-        window.location.href = "department.html";
-      }
-      function information_hospitals() {
-        window.location.href = "information_hospitals.html";
-      }
-      function archive_medcards() {
-        window.location.href = "archive_medcards.html";
-      }
-      function analyzes(id) {
-    window.location.href = "analyzs.html?id=" + id;
-  }
-      function inspections(id) {
-        window.location.href = "inspections.html?id=" + id;
-      }
-      function diaries(id) {
-        window.location.href = "diaries.html?id=" + id;
-      }
-      function diagnoses(id) {
-        window.location.href = "diagnoses.html?id=" + id;
-      }
-
-      function showContent(contentId) {
-        document.querySelectorAll(".content1, .content2").forEach((content) => {
-          content.classList.remove("active");
-        });
-        document.getElementById(contentId).classList.add("active");
-
-        document.querySelectorAll(".btn_block2").forEach((button) => {
-          button.classList.remove("active");
-        });
-        document
-          .querySelector(`[onclick="showContent('${contentId}')"]`)
-          .classList.add("active");
-      }
-
-      const buttons = document.querySelectorAll(".btn_block2");
-      buttons.forEach((button) => {
-        button.addEventListener("click", function () {
-          buttons.forEach((btn) => btn.classList.remove("active"));
-          this.classList.add("active");
-        });
-      });
-      function toggleDropdown1(id) {
-        var dropdown = document.getElementById(id);
-        dropdown.style.display =
-          dropdown.style.display === "flex" ? "none" : "flex";
-      }
-
-      function showContent(contentId) {
-        document.querySelectorAll(".content1, .content2").forEach((content) => {
-          content.classList.remove("active");
-        });
-        document.getElementById(contentId).classList.add("active");
-
-        document.querySelectorAll(".btn_block2").forEach((button) => {
-          button.classList.remove("active");
-        });
-        document
-          .querySelector(`[onclick="showContent('${contentId}')"]`)
-          .classList.add("active");
-      }
-
-      function showContent2(option) {
-        document.getElementById("content11").style.display =
-          option == 1 ? "block" : "none";
-        document.getElementById("content12").style.display =
-          option == 2 ? "block" : "none";
-      }
-        // Функция для открытия модального окна
-  function openPopup(id) {
-    var popup = document.getElementById(id);
-    if (popup) {
-      popup.style.display = "block";
-    }
-  }
-
-  // Функция для закрытия модального окна
-  function closePopup(id) {
-    var popup = document.getElementById(id);
-    if (popup) {
-      popup.style.display = "none";
-    }
-  }
-  
-  document.addEventListener('DOMContentLoaded', function() {
-    const dropdownToggle = document.querySelector('.dropdown-toggle');
-    const dropdownMenu = document.querySelector('.dropdown-menu');
-    const doctorIcon = document.querySelector('.doctor');
-
-    dropdownToggle.addEventListener('click', function(event) {
-        event.preventDefault();
-        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-    });
-
-    document.addEventListener('click', function(event) {
-        if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
-            dropdownMenu.style.display = 'none';
-        }
-    });
-  });
-  function Exit() {
-    window.location.href = "index.html";
-  }
-    </script>
-    <script
-      src="https://kit.fontawesome.com/09ef455c42.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src={% static "scripts/medcard.js"%}></script>
 {%endblock%}
 

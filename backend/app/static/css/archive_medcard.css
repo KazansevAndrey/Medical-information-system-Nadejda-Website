@@ -1,0 +1,196 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1rem;
+    background-color: #ffffff;
+    color: #333;
+    background-image: url('/img/15229725_v870-tang-39.jpg');
+    background-size: cover;
+}
+
+.popup {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 80%;
+    border-radius: 6px;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.popup button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #349d94;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.popup button:hover {
+    background-color: #277c6f;
+}
+
+.popup h2 {
+    text-align: center;
+}
+
+.status {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 22px;
+}
+#status{
+    font-size: 18px;
+}
+.status-open {
+    color: rgb(255, 0, 0);
+    font-size: 18px;
+}
+
+.info-section,
+.warning-section {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.info-block {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.info-block div {
+    flex: 1 1 calc(50% - 10px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #c1c5c442;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.info-block i {
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.span-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    margin-left: 1px;
+}
+
+.span_pokaz {
+    color: rgba(0, 0, 0, 0.753);
+}
+
+.span_rez {
+    color: #000000;
+}
+
+.warning-section .btn-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.btn_in2 {
+    text-decoration: none;
+    font-size: 16px;
+    width: 100%;
+    border: 0px solid #3e3c3c;
+    border-radius: 4px;
+    background-color: #349d94;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn_in2:hover {
+    background-color: #6ec0b9;
+}
+
+.btn_in2 i {
+    font-size: 1.5rem;
+}
+
+@media (max-width: 920px) {
+    .warning-section .btn-wrapper {
+        flex-direction: column;
+    }
+
+    .btn_in2 {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .popup {
+        width: 90%;
+        margin-top: 20px;
+        padding: 15px;
+    }
+
+    .section-title {
+        font-size: 1.05rem;
+    }
+
+    .info-block span {
+        font-size: 14px;
+    }
+
+    .btn_in2 {
+        font-size: 14px;
+    }
+
+    .status span {
+        font-size: 20px;
+    }
+
+    .status-open {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 580px) {
+    .info-block div {
+        flex: 1 1 100%;
+    }
+
+    .info-block i {
+        font-size: 1.25rem;
+    }
+
+    .btn_in2 i {
+        font-size: 1.25rem;
+    }
+}
