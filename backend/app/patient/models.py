@@ -54,7 +54,7 @@ class FinanceSource(models.Model):
     
 class MedCard(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    patient_metrick = models.ForeignKey(PatientMetrick, on_delete=models.SET_NULL, null=True, default='-')
+    patient_metrick = models.ForeignKey(PatientMetrick, on_delete=models.SET_NULL, null=True)
     additional_patient_metrick = models.ForeignKey(AdditionalPatientMetrick, on_delete=models.SET_NULL, null=True, blank=True)
     med_card_number = models.CharField(max_length=4)
     med_card_status_choices = [
@@ -69,9 +69,9 @@ class MedCard(models.Model):
 class Hospitalization(models.Model):
     patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
     med_card_id = models.ForeignKey(MedCard, on_delete=models.CASCADE)
-    doctor_id = models.ForeignKey(Doctor, on_delete=models.SET_NULL, null=True, default='-')
-    department_id = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, default='-')
-    finance_source_id = models.ForeignKey(FinanceSource, on_delete=models.SET_NULL, null=True, default='-')
+    doctor_id = models.ForeignKey(Doctor, on_delete=models.SET_NULL, null=True, blank=True)
+    department_id = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True)
+    finance_source_id = models.ForeignKey(FinanceSource, on_delete=models.SET_NULL, null=True, blank=True)
     hospitalization_choices = [('E', 'Экстренное (Первые 6 часов)'), ('M', "Первые 24 часа"), ('P', 'Плановое')]
     hospitalization_type = models.CharField(max_length=1, choices=hospitalization_choices, default='M')
     reanimation = models.BooleanField()

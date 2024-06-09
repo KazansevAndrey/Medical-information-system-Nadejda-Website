@@ -11,22 +11,20 @@ def get_first_department():
     first_department = Department.objects.all()[0]
     return first_department
 
-#Пациенты отделения
+#Госпитализации с открытыми мед картами
 def get_hospitalizations_of_department(department_id):
-    hospitalizations_of_department = Hospitalization.objects.filter(department_id=department_id)
+    hospitalizations_of_department = Hospitalization.objects.filter(med_card_id__med_card_status='o').filter(department_id=department_id)
     return hospitalizations_of_department
 
-#Пациенты врача
-def get_hospitalizations_of_doctor(patients, request):
-    hospitalizations_of_doctor = Hospitalization.objects.filter(doctor_id=request.user.pk)
-
-   
+#Госпитализации отделения
+def get_hospitalizations_of_doctor(hospitalizations_of_department, request):
+    hospitalizations_of_doctor = hospitalizations_of_department.objects.filter(doctor_id=request.user.pk)
     print("Пациенты врача: ", hospitalizations_of_doctor)
     return hospitalizations_of_doctor
 
-#Все пациеты
+#Все госпитализации с открытой мед картой
 def get_all_hospitalizations():
-    return Hospitalization.objects.all()
+    return Hospitalization.objects.filter(med_card_id__med_card_status='o')
 
 def get_patients(hospitalizations):
     patients = []
