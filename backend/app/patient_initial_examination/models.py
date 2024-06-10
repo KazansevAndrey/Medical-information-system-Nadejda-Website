@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from patient.models import Patient, MedCard
 from accounts.models import Doctor
 # Create your models here.
@@ -13,9 +14,11 @@ class InitialExamination(models.Model):
     allergic_history = models.CharField(max_length=500, null=True, blank=True) # Аллергический анамнез
     transfusion_history = models.CharField(max_length=500, null=True, blank=True) # Трансфизионный анамнез
     objective_examination_data = models.CharField(max_length=500, null=True, blank=True) # Данные объективного осмотра
-    is_examined_on_an_outpatient_basis = models.BooleanField(default=False)
-    examination_plan = models.CharField(max_length=500, null=True, blank=True)
+    is_examined_on_an_outpatient_basis = models.BooleanField(default=False) # Исследовался ли амбулаторно
+    examination_plan = models.CharField(max_length=500, null=True, blank=True) 
     treatment_plan = models.CharField(max_length=500, null=True, blank=True)
+    date = models.DateTimeField(default=timezone.now)
+
 
     def __str__(self):
-        return f"Initial Examination of {self.patient}"
+        return f"Первичный осмотр {self.patient}"

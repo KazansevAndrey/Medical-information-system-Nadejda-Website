@@ -21,6 +21,9 @@ def main_data_view(request, patient_id):
     doctor_name = get_doctor_full_name(request)
     department = get_department(hospitalization)
     analyzes = get_items(Analysis, med_card)
+    examinations = get_items(InitialExamination, med_card)
+    diagnoses = get_items(Diagnoses, med_card)
+    diaries = get_items(Diarie, med_card)
     print(analyzes)
     
     context = {
@@ -31,8 +34,8 @@ def main_data_view(request, patient_id):
         'metricks': metricks,
         'med_card': med_card,
         'analyzes':analyzes,
-        # 'diagnoses':diagnoses,
-        # 'diaries':diaries,
-        # 'examinations':examinations
+        'diagnoses':diagnoses,
+        'diaries':diaries,
+        'examinations':examinations
     }
     return render(request, 'basic_patient_data/medcard.html', context)

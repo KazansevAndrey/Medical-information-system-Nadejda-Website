@@ -6,6 +6,8 @@ from accounts.models import Doctor
 
 class DiaryType(models.Model):
     name = models.CharField(max_length=50)
+    def __str__(self):
+        return self.name
 
 class Diarie(models.Model):
     diary_type = models.ForeignKey(DiaryType, on_delete=models.CASCADE, null=True, blank=True)
@@ -16,3 +18,6 @@ class Diarie(models.Model):
     examination = models.CharField(max_length=500, null=True, blank=True) # Данные медицинского осмотра
     additional = models.CharField(max_length=500, null=True, blank=True) # Дополнительные сведения
     date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'{self.diary_type} {self.patient} {self.date}'

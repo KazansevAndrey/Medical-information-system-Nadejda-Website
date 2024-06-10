@@ -137,7 +137,7 @@
             <div class="dropdown-item" onclick="analyzes('{{analisis.id}}')" id="{{analisis.id}}">
               <div class="span-column">
                 <span class="item-title">{{analisis.analysis_name}}</span>
-                <span class="item-date">{{analisis.date_taken}}</span>
+                <span class="item-date">{{analisis.date_taken|date:"d.m.Y"}}</span>
               </div>
               <i class="fa-solid fa-arrow-right awesome"></i>
             </div>
@@ -145,87 +145,50 @@
           </div>
           <div class="button" onclick="toggleDropdown1('dropdown2')">
             <span class="button-title">Первичный осмотр</span>
-            <span class="button-count">(3)</span>
+            <span class="button-count">({{examinations.count}})</span>
           </div>
           <div id="dropdown2" class="dropdown1">
+            {%for examination in examinations%}
             <div class="dropdown-item" onclick="inspections('d4')" id="d4">
               <div class="span-column">
                 <span class="item-title">Первичный осмотр</span>
-                <span class="item-date">03.01.2023</span>
+                <span class="item-date">{{examination.date|date:"d.m.Y"}}</span>
               </div>
               <i class="fa-solid fa-arrow-right awesome"></i>
             </div>
-            <div class="dropdown-item" onclick="inspections('d5')" id="d5">
-              <div class="span-column">
-                <span class="item-title">Первичный осмотр</span>
-                <span class="item-date">04.01.2023</span>
-              </div>
-              <i class="fa-solid fa-arrow-right awesome"></i>
-            </div>
-            <div class="dropdown-item" onclick="inspections('d6')" id="d6">
-              <div class="span-column">
-                <span class="item-title">Первичный осмотр</span>
-                <span class="item-date">02.01.2023</span>
-              </div>
-              <i class="fa-solid fa-arrow-right awesome"></i>
-            </div>
+            {%endfor%}
+            
           </div>
           <div class="button" onclick="toggleDropdown1('dropdown3')">
             <span class="button-title">Диагнозы</span>
-            <span class="button-count">(3)</span>
+            <span class="button-count">({{diagnoses.count}})</span>
           </div>
           <div id="dropdown3" class="dropdown1">
+            {%for diagnose in diagnoses%}
             <div class="dropdown-item" onclick="diagnoses('d7')" id="d7">
               <div class="span-column">
-                <span class="item-title">(T000) Поверхностные травмы шеи</span>
-                <span class="item-date">03.01.2023</span>
-                <span class="item-date">Заключительный</span>
+                <span class="item-title">{{diagnose.code}}</span>
+                <span class="item-date">{{diagnose.date|date:"d.m.Y"}}</span>
+                <span class="item-date">{{diagnose.get_kind_display}}</span>
               </div>
               <i class="fa-solid fa-arrow-right awesome"></i>
             </div>
-            <div class="dropdown-item" onclick="diagnoses('d8')" id="d8">
-              <div class="span-column">
-                <span class="item-title">(В002) Герпетический гингивостоматит и фаринготонзиллит</span>
-                <span class="item-date">04.01.2023</span>
-                <span class="item-date">Заключительный</span>
-              </div>
-              <i class="fa-solid fa-arrow-right awesome"></i>
-            </div>
-            <div class="dropdown-item" onclick="diagnoses('d9')" id="d9">
-              <div class="span-column">
-                <span class="item-title">(F03.1) Пресенильная деменция неуточненная</span>
-                <span class="item-date">02.01.2023</span>
-                <span class="item-date">Заключительный</span>
-              </div>
-              <i class="fa-solid fa-arrow-right awesome"></i>
-            </div>
+            {% endfor %}
           </div>
           <div class="button" onclick="toggleDropdown1('dropdown4')">
             <span class="button-title">Дневники</span>
-            <span class="button-count">(3)</span>
+            <span class="button-count">({{diaries.count}})</span>
           </div>
           <div id="dropdown4" class="dropdown1">
+            {%for diary in diaries%}
             <div class="dropdown-item" onclick="diaries('d10')" id="d10">
               <div class="span-column">
-                <span class="item-title">03.06.2024 11:07</span>
-                <span class="item-date">Пока живой</span>
+                <span class="item-title">{{diary.date|date:"d.m.Y H:i"}}</span>
+                <span class="item-date">{{diary.additional}}</span>
               </div>
               <i class="fa-solid fa-arrow-right awesome"></i>
             </div>
-            <div class="dropdown-item" onclick="diaries('d11')" id="d11">
-              <div class="span-column">
-                <span class="item-title">03.06.2024 11:07</span>
-                <span class="item-date">Таблетки</span>
-              </div>
-              <i class="fa-solid fa-arrow-right awesome"></i>
-            </div>
-            <div class="dropdown-item" onclick="diaries('d12')" id="d12">
-              <div class="span-column">
-                <span class="item-title">03.06.2024 11:07</span>
-                <span class="item-date">Все норм</span>
-              </div>
-              <i class="fa-solid fa-arrow-right awesome"></i>
-            </div>
+            {%endfor%}
           </div>
         </div>
       </div>
