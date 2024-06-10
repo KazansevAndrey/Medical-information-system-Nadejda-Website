@@ -8,7 +8,7 @@ function gotodep() {
     window.location.href = "archive_medcards.html";
   }
   function analyzes(id) {
-window.location.href = "analyzs.html?id=" + id;
+window.location.href = "analysis/" + id;
 }
   function inspections(id) {
     window.location.href = "inspections.html?id=" + id;

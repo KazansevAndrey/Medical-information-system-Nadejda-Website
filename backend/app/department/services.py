@@ -18,7 +18,7 @@ def get_hospitalizations_of_department(department_id):
 
 #Госпитализации отделения
 def get_hospitalizations_of_doctor(hospitalizations_of_department, request):
-    hospitalizations_of_doctor = hospitalizations_of_department.objects.filter(doctor_id=request.user.pk)
+    hospitalizations_of_doctor = hospitalizations_of_department.filter(doctor_id=request.user.pk)
     print("Пациенты врача: ", hospitalizations_of_doctor)
     return hospitalizations_of_doctor
 
@@ -37,5 +37,4 @@ def get_patients(hospitalizations):
             'age': hospitalization.patient_id.age,
             'receipt_date': hospitalization.receipt_date.strftime("%d.%m.%Y %H:%M"),
         })
-        print('Пациенты ....', patients)
     return patients

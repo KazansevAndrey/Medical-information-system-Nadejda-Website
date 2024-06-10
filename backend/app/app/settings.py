@@ -45,8 +45,9 @@ INSTALLED_APPS = [
     'accounts',
     'department',
     'patient',
-    'patients_analysis', 
+    'patient_analysis', 
     'patient_diary',
+    'patient_diagnoses',
     'patient_initial_examination',
 ]
 

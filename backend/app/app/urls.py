@@ -23,6 +23,6 @@ urlpatterns = [
     path('', include('accounts.urls', namespace='accounts')),
 
     path('department/', include('department.urls', namespace='department')),
-
+    path('patient/analysis/', include('patient_analysis.urls', namespace='analysis')),
     path('patient/', include('patient.urls', namespace='patient')),
 ]

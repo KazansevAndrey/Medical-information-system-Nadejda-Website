@@ -1,0 +1,57 @@
+{%extends 'department/base.html'%}
+{%load static%}
+{%block style%}
+{% load custom_tags %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-6o3tPtQyASQw5kF5tReF6U3bJ0PLyp7ZnN5CQe5eBbm9FSuF9hXnO/GJS2doq5F4DlYbKN8cdSGcuW2meGwMZg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+<link href={% static "img/app-icon-all.png"%} rel="shortcut icon">
+<link rel="stylesheet" href={% static "css/analyzs.css"%}>
+{%endblock%}
+
+<body>
+    {%block content%}
+    <a href="javascript:history.back()" style="color: #000000; font-size: 20px;"><i class="fa-solid fa-arrow-right-from-bracket"id="exit" style="transform:rotate(180deg); margin-right: 20px;font-size: 24px; color:  #000000;margin-top: 20px;margin-left: 20px;"></i>Назад</a>
+    <div id="popup1" class="popup">
+        <h2>Анализ от {{analysis.date_taken}}</h2>
+        <div class="span-column">
+            <span class="item-title">Пациент</span>
+            <span class="item-date">{{patient.last_name}} {{patient.first_name}} {{patient.surname}} {{patient.age}} {{patient.age|age_pluralize}}</span>
+            <span class="item-title">Автор</span>
+            <span class="item-date">Врач</span>
+            <span class="item-title">Код</span>
+            <span class="item-date">{{analysis.analysis_name.code}}</span>
+            <span class="item-title">Наименование анализа по тарификатору</span>
+            <span class="item-date">{{analysis.analysis_name}}</span>
+            <span class="item-title">Статус</span>
+            <span class="item-date">{{analysis.status}}</span>
+        </div>
+        <div class="responsive-table-container">
+            <table class="responsive-table">
+                <thead>
+                    <tr>
+                        <th>Показатель</th>
+                        <th>Результат</th>
+                        <th>Норма</th>
+                        <th>Ед.изм.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for indicator in result%}
+                    <tr>
+                        <td data-label="Показатель">{{indicator.indicator|default:""}}</td>
+                        <td data-label="Результат"> {{indicator.result|default:""}}</td>
+                        <td data-label="Норма">{{indicator.norm|default:""}}</td>
+                        <td data-label="Ед.изм.">{{indicator.unit|default:""}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+        <button onclick="Close('')">Закрыть</button>
+    </div>
+    {%endblock%}
+    {%block scripts%}
+    <script src={% static "scripts/analysis.js"%}></script>
+    {%endblock%}
+
+
+

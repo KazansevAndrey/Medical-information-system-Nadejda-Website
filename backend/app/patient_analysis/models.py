@@ -8,6 +8,7 @@ from patient.models import Patient, MedCard
 
 class AnalysisName(models.Model):
     name = models.CharField(max_length=50)
+    code = models.CharField(max_length=11)
     def __str__(self):
         return self.name
 
@@ -36,9 +37,10 @@ class Analysis(models.Model):
         query = AnalysisResult.objects.filter(analysis=self).select_related('analysis_indicator')
         for result in query:
             results.append({
-                'analysis_result': result.analysis_result,
-                'indicator_norm': result.analysis_indicator.indicator_norm,
-                'indicator_unit': result.analysis_indicator.indicator_unit,
+                'indicator': result.analysis_indicator.indicator_name,
+                'result': result.analysis_result,
+                'norm': result.analysis_indicator.indicator_norm,
+                'unit': result.analysis_indicator.indicator_unit,
             })
         return results        
     
@@ -52,7 +54,7 @@ class AnalysisResult(models.Model):
     analysis_result = models.CharField(max_length=50)
 
     class Meta:
-        unique_together = ('analysis', 'analysis_indicator')
+        unique_together = ('analysis', 'analysis_indicator') # Что бы к одному анализу один индикатор
 
     def __str__(self):
         return f'{self.analysis_indicator} Результат: {self.analysis_result}'
