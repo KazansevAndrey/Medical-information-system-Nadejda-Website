@@ -18,7 +18,7 @@ def view_department(request, department_id):
         print('пользователь не авторизован')
         return redirect(settings.LOGIN_URL)
     departments = get_departments()
-    doctor_name = doctor_services.get_doctor_full_name(request)
+    doctor_name = doctor_services.get_doctor_full_name(request.user)
 
     if department_id == 'all':
         hospitalizations_of_department = get_all_hospitalizations()

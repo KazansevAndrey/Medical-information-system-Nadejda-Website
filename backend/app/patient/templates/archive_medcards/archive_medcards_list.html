@@ -1,0 +1,34 @@
+{%extends 'department/base.html'%}
+{%load static%}
+{% load custom_tags %}
+{%block style%}
+<link href="/img/app-icon-all.png" rel="shortcut icon">
+<link rel="stylesheet" href="{% static 'css/archive_medcards.css'%}">
+{%endblock%}
+{%block content%}
+    <a href="javascript:history.back()" style="color: #000000; font-size: 20px;"><i class="fa-solid fa-arrow-right-from-bracket"id="exit" style="transform:rotate(180deg); margin-right: 20px;font-size: 24px; color:  #000000;margin-top: 20px;margin-left: 20px;"></i>Назад</a>
+    <div id="popup1" class="popup">
+      <h2>Архивные медкарты</h2>
+      <div id="content12" class="content12">
+        <div class="buttons-vertical">
+        {%for hospitalization in archive_hospitalizations%}
+          <div class="dropdown-item" onclick="medcard('{{hospitalization.med_card_id.id}}')" id="d1">
+            <div class="span-column1">
+              <span class="item-title">{{patient.last_name}} {{patient.first_name}} {{patient.surname}}</span>
+              <span class="item-date">{{patient.age}} {{patient.age|age_pluralize}}, пребывал(а): {{hospitalization.receipt_date|date:"d.m.Y"}} - {{hospitalization.date_of_discharge|date:"d.m.Y"}}</span>
+              <span class="item-date">{{hospitalization.department}}</span>
+            </div>
+            <i class="fa-solid fa-arrow-right awesome"></i>
+          </div>
+        {%endfor%}
+        </div>
+      </div>
+      <button onclick="Close()">Закрыть</button>
+    </div>
+{%endblock%}
+{%block scripts%}
+<script src="{%static 'scripts/close.js'%}"></script>
+<script src="{% static 'scripts/archive_medcards.js'%}"></script>
+<script src="https://kit.fontawesome.com/09ef455c42.js" crossorigin="anonymous"></script>
+{%endblock%}
+

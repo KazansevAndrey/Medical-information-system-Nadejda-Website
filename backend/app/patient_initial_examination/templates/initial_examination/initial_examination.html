@@ -1,0 +1,47 @@
+{%extends 'department/base.html'%}
+{%load static%}
+{% load custom_tags %}
+{%block style%}
+<link href="/img/app-icon-all.png" rel="shortcut icon">
+<link rel="stylesheet" href={% static "css/inspections.css"%}>
+{%endblock%}
+{%block content%}
+<a href="javascript:history.back()" style="color: #000000; font-size: 20px;"><i class="fa-solid fa-arrow-right-from-bracket"id="exit" style="transform:rotate(180deg); margin-right: 20px;font-size: 24px; color:  #000000;margin-top: 20px;margin-left: 20px;"></i>Назад</a>
+    <div id="popup1" class="popup">
+        <h2>Осмотр от {{examination.date|date:"d.m.Y. h:m"}}</h2>
+        <div class="span-column">
+            <span class="item-title">Пациент</span>
+            <span class="item-date">{{patient.last_name}} {{patient.first_name}} {{patient.surname}}, {{patient.age}} {{patient.age|age_pluralize}}</span>
+            <a href="{% url 'diagnoses:patient_diagnoses' examination.med_card.id%}">Диагнозы</a>
+            <span class="item-title">Состав осмотра</span>
+            <span class="item-date">{{examination.bypass}}</span>
+            <span class="item-title">Автор</span>
+            <span class="item-date">{{examination.author}}</span>
+            <span class="item-title">Анамнез заболевания</span>
+            <span class="item-date">{{examination.medical_history}}</span>
+            <span class="item-title">Анамнез жизни</span>
+            <span class="item-date">{{examination.anamnesis_of_life}}</span>
+            <span class="item-title">Аллергологический анамнез</span>
+            <span class="item-date">{{examination.allergic_history}}</span>
+            <span class="item-title">Трансфузионный анамнез</span>
+            <span class="item-date">{{examination.transfusion_history}}</span>
+            <span class="item-title">Данные объективного осмотра</span>
+            <span class="item-date">{{examination.objective_examination_data}}</span>
+            <span class="item-title">Обследован(а) амбулаторно</span>
+            <span class="item-date">{{examination.get_is_examined_on_an_outpatient_basis_display}}</span>
+            <span class="item-title">План обследования</span>
+            <span class="item-date">{{examination.examination_plan}}</span>
+            <span class="item-title">План лечения</span>
+            <span class="item-date">{{examination.treatment_plan}}</span>
+        </div>
+        <button onclick="Close()">Закрыть</button>
+    </div>
+    <div class="diagnoses_popup">
+</div>
+{%endblock%}
+{%block scripts%}
+<script src="{%static 'scripts/close.js'%}"></script>
+{%endblock%}
+
+    
+

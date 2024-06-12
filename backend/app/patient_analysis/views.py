@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from .analysis_services import *
+from patient.services import get_patient_by_medcard
 from accounts.doctor_services import get_doctor_full_name
 from app import settings
 from patient_analysis.models import Analysis
@@ -14,7 +15,8 @@ def analysis_view(request, analysis_id):
         print('пользователь не авторизован')
         return redirect(settings.LOGIN_URL)
     analysis = get_analysis(analysis_id)
-    patient = get_patient_of_analysis(analysis)
+    medcard = analysis.med_card.id
+    patient = get_patient_by_medcard(medcard)
     result = get_analysis_result(analysis)
     context = {
         'analysis':analysis,

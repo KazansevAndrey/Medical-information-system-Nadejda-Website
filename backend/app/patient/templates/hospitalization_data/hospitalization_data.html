@@ -1,0 +1,36 @@
+{%extends 'department/base.html'%}
+{%load static%}
+{% load custom_tags %}
+{%block style%}
+<link href="{% static 'img/app-icon-all.png'%}" rel="shortcut icon">
+<link rel="stylesheet" href="{% static 'css/information_hospitals.css'%}">
+{%endblock%}
+{%block content%}
+    <a href="javascript:history.back()" style="color: #000000; font-size: 20px;"><i class="fa-solid fa-arrow-right-from-bracket"id="exit" style="transform:rotate(180deg); margin-right: 20px;font-size: 24px; color:  #000000;margin-top: 20px;margin-left: 20px;"></i>Назад</a>
+    <div id="popup1" class="popup">
+        <h2>Данные о госпитализации</h2>
+        <div class="span-column">
+          <span class="item-title">Тип госпитализации</span>
+          <span class="item-date">{{hospitalization.get_hospitalization_type_display}}</span>
+          <span class="item-title">Палата</span>
+          <span class="item-date">Палата №{{hospitalization.ward}}</span>
+          <span class="item-title">Дата</span>
+          <span class="item-date">{{hospitalization.receipt_date|date:"d.m.Y"}}</span>
+          {%if hospitalization.date_of_discharge%}
+          <span class="item-title">Дата выписки</span>
+          <span class="item-date">{{hospitalization.date_of_discharge|default_if_none:"-"|date:"d.m.Y"}}</span>
+          {%endif%}
+          <span class="item-title">Отделение</span>
+          <span class="item-date">{{department}}</span>
+          <span class="item-title">Лечащий врач</span>
+          <span class="item-date">{{doctor_name}}</span>
+          <span class="item-title">Источник финансирования</span>
+          <span class="item-date">{{hospitalization.finance_source_id}}</span>
+        </div>
+        <button onclick="Close('')">Закрыть</button>
+    </div>
+{%endblock%}
+{%block scripts%}
+<script src="{%static 'scripts/close.js'%}"></script>
+{%endblock%}
+

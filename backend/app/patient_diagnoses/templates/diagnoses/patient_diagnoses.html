@@ -1,0 +1,35 @@
+{%extends 'department/base.html'%}
+{%load static%}
+{% load custom_tags %}
+{%block style%}
+<link href={% static "img/app-icon-all.png"%} rel="shortcut icon">
+  <link rel="stylesheet" href={% static "css/diagnoses_osmoter.css"%}>
+{%endblock%}
+{%block content%}
+
+    <a href="javascript:history.back()" style="color: #000000; font-size: 20px;"><i class="fa-solid fa-arrow-right-from-bracket"id="exit" style="transform:rotate(180deg); margin-right: 20px;font-size: 24px; color:  #000000;margin-top: 20px;margin-left: 20px;"></i>Назад</a>
+    <div id="popup1" class="popup">
+      <h2>Диагнозы</h2>
+      <div id="content12" class="content12">
+        <div class="buttons-vertical">
+          {%for diagnosis in diagnoses%}
+          <div class="dropdown-item" onclick="diagnoses('{{diagnosis.id}}')" id="d1">
+            <div class="span-column1">
+                <span class="item-title">{{diagnosis.code}}</span>
+                <span class="item-date">{{diagnosis.date|date:"d.m.Y. h:m"}}</span>
+                <span class="item-date">{{diagnosis.get_kind_display}}</span>
+            </div>
+            <i class="fa-solid fa-arrow-right awesome"></i>
+          </div>
+        </div>
+        {%endfor%}
+      </div>
+      <button onclick="Close()">Закрыть</button>
+    </div>
+{%endblock%}
+{%block scripts%}
+<script src="{% static 'scripts/diagnoses.js'%}"></script>
+<script src="{%static 'scripts/close.js'%}"></script>
+<script src="https://kit.fontawesome.com/09ef455c42.js" crossorigin="anonymous"></script>
+{%endblock%}
+  

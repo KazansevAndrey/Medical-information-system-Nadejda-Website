@@ -67,11 +67,11 @@
             <i class="fas fa-exclamation-triangle"></i>
             <span>В реанимации</span>
           </button>
-          <button class="btn_in2" onclick="information_hospitals()">
+          <button class="btn_in2" onclick="hospitalization_information('{{patient.id}}')">
             <i class="fas fa-hospital"></i>
             <span>Данные о госпитализации</span>
           </button>
-          <button class="btn_in2" onclick="archive_medcards()">
+          <button class="btn_in2" onclick="archive_medcards('{{patient.id}}')">
             <i class="fas fa-folder-open"></i>
             <span>Архивные мед. карты</span>
           </button>
@@ -134,7 +134,7 @@
           
           <div id="dropdown1" class="dropdown1">
             {%for analisis in analyzes%}
-            <div class="dropdown-item" onclick="analyzes('{{analisis.id}}')" id="{{analisis.id}}">
+            <div class="dropdown-item" onclick="analyzes('{{analisis.id}}')" id="{{analisis}}">
               <div class="span-column">
                 <span class="item-title">{{analisis.analysis_name}}</span>
                 <span class="item-date">{{analisis.date_taken|date:"d.m.Y"}}</span>
@@ -149,7 +149,7 @@
           </div>
           <div id="dropdown2" class="dropdown1">
             {%for examination in examinations%}
-            <div class="dropdown-item" onclick="inspections('d4')" id="d4">
+            <div class="dropdown-item" onclick="inspections('{{examination.id}}')" id="d4">
               <div class="span-column">
                 <span class="item-title">Первичный осмотр</span>
                 <span class="item-date">{{examination.date|date:"d.m.Y"}}</span>
@@ -165,7 +165,7 @@
           </div>
           <div id="dropdown3" class="dropdown1">
             {%for diagnose in diagnoses%}
-            <div class="dropdown-item" onclick="diagnoses('d7')" id="d7">
+            <div class="dropdown-item" onclick="diagnoses('{{diagnose.id}}')" id="d7">
               <div class="span-column">
                 <span class="item-title">{{diagnose.code}}</span>
                 <span class="item-date">{{diagnose.date|date:"d.m.Y"}}</span>
@@ -181,7 +181,7 @@
           </div>
           <div id="dropdown4" class="dropdown1">
             {%for diary in diaries%}
-            <div class="dropdown-item" onclick="diaries('d10')" id="d10">
+            <div class="dropdown-item" onclick="diaries('{{diary.id}}')" id="d10">
               <div class="span-column">
                 <span class="item-title">{{diary.date|date:"d.m.Y H:i"}}</span>
                 <span class="item-date">{{diary.additional}}</span>
@@ -194,7 +194,7 @@
       </div>
       <div id="content12" class="content12">
         <div class="buttons-vertical">
-          <div class="dropdown-item" onclick="diagnoses('d1')" id="d1">
+          <div class="dropdown-item" onclick="diagnoses('')" id="d1">
             <div class="span-column1">
               <span class="item-title">(F03.1) Пресенильная деменция неуточненная</span>
               <span class="item-date">02.01.2023</span>
@@ -289,6 +289,6 @@
     </div>
 {%endblock%}
 {%block scripts%}
-    <script src={% static "scripts/medcard.js"%}></script>
+    <script src="{% static 'scripts/medcard.js'%}"></script>
 {%endblock%}
 

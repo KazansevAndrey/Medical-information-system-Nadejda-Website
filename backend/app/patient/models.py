@@ -25,18 +25,7 @@ class Patient(models.Model): # Таблица пациента
     def __str__(self):
         return f"{self.last_name} {self.first_name} {self.surname}"
     
-class PatientMetrick(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    height = models.IntegerField(default=0)
-    weight = models.IntegerField(default=0)
-    temperatury = models.CharField(max_length=4)
-    puls = models.CharField(max_length=4)
-    resperatory_rate = models.CharField(max_length=3)
-    pressure = models.CharField(max_length=7)
-    saturation = models.CharField(max_length=3)
-    def __str__(self):
-        return f"{self.patient} Рост {self.height}. Вес {self.weight}кг"
-  
+
 class FinanceSource(models.Model):
     name = models.CharField(max_length=50)
 
@@ -46,8 +35,7 @@ class FinanceSource(models.Model):
     
 class MedCard(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    patient_metrick = models.ForeignKey(PatientMetrick, on_delete=models.SET_NULL, null=True)
-    med_card_number = models.CharField(max_length=4)
+    med_card_number = models.CharField(max_length=4, unique=True)
     med_card_status_choices = [
         ('o', 'Открыта'),
         ('c','Закрыта'),
@@ -56,7 +44,20 @@ class MedCard(models.Model):
     
     def __str__(self):
         return f"{self.med_card_number} {self.patient}"
-    
+
+class PatientMetrick(models.Model):
+    med_card = models.OneToOneField(MedCard, on_delete=models.CASCADE)
+    height = models.IntegerField(default=0)
+    weight = models.IntegerField(default=0)
+    temperatury = models.CharField(max_length=4)
+    puls = models.CharField(max_length=4)
+    resperatory_rate = models.CharField(max_length=3)
+    pressure = models.CharField(max_length=7)
+    saturation = models.CharField(max_length=4)
+    def __str__(self):
+        return f"{self.med_card} Рост {self.height}. Вес {self.weight}кг"
+  
+  
 class AdditionalPatientMetrick(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     med_card = models.ForeignKey(MedCard, on_delete=models.CASCADE)
@@ -67,12 +68,13 @@ class AdditionalPatientMetrick(models.Model):
 
 class Hospitalization(models.Model):
     patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    med_card_id = models.ForeignKey(MedCard, on_delete=models.CASCADE)
+    med_card_id = models.OneToOneField(MedCard, on_delete=models.CASCADE)
     doctor_id = models.ForeignKey(Doctor, on_delete=models.SET_NULL, null=True, blank=True)
     department_id = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True)
     finance_source_id = models.ForeignKey(FinanceSource, on_delete=models.SET_NULL, null=True, blank=True)
     hospitalization_choices = [('E', 'Экстренное (Первые 6 часов)'), ('M', 'Первые 24 часа'), ('P', 'Плановое')]
     hospitalization_type = models.CharField(max_length=1, choices=hospitalization_choices, default='M')
+    ward = models.CharField(max_length=10, default='7') #Палата
     reanimation = models.BooleanField()
     receipt_date = models.DateTimeField(default=timezone.now)
     date_of_discharge = models.DateTimeField(null=True, blank=True)

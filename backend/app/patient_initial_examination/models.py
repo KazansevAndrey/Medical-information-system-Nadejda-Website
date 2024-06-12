@@ -14,8 +14,9 @@ class InitialExamination(models.Model):
     allergic_history = models.CharField(max_length=500, null=True, blank=True) # Аллергический анамнез
     transfusion_history = models.CharField(max_length=500, null=True, blank=True) # Трансфизионный анамнез
     objective_examination_data = models.CharField(max_length=500, null=True, blank=True) # Данные объективного осмотра
-    is_examined_on_an_outpatient_basis = models.BooleanField(default=False) # Исследовался ли амбулаторно
-    examination_plan = models.CharField(max_length=500, null=True, blank=True) 
+    bolean_choices = [(True, 'Да'), (False, 'Нет')]
+    is_examined_on_an_outpatient_basis = models.BooleanField(choices=bolean_choices, default=False) # Исследовался ли амбулаторно
+    examination_plan = models.CharField(max_length=500, null=True, blank=True) # План обследования
     treatment_plan = models.CharField(max_length=500, null=True, blank=True)
     date = models.DateTimeField(default=timezone.now)
 

@@ -1,23 +1,23 @@
 function gotodep() {
     window.location.href = "department.html";
   }
-  function information_hospitals() {
-    window.location.href = "information_hospitals.html";
+  function hospitalization_information(id) {
+    window.location.href = id+"/hospitalization_info";
   }
-  function archive_medcards() {
-    window.location.href = "archive_medcards.html";
+  function archive_medcards(id) {
+    window.location.href = id+"/archive_medcards";
   }
   function analyzes(id) {
 window.location.href = "analysis/" + id;
 }
   function inspections(id) {
-    window.location.href = "inspections.html?id=" + id;
+    window.location.href = "initial_examination/" + id;
   }
   function diaries(id) {
-    window.location.href = "diaries.html?id=" + id;
+    window.location.href = "diary/" + id;
   }
   function diagnoses(id) {
-    window.location.href = "diagnoses.html?id=" + id;
+    window.location.href = "diagnoses/" + id;
   }
 
   function showContent(contentId) {

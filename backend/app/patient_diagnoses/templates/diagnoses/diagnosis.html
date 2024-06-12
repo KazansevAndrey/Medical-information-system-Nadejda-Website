@@ -1,0 +1,31 @@
+{%extends 'department/base.html'%}
+{%load static%}
+{% load custom_tags %}
+{%block style%}
+<link href={% static "img/app-icon-all.png"%} rel="shortcut icon">
+<link rel="stylesheet" href={% static "css/diagnoses.css"%}>
+{%endblock%}
+{%block content%}
+<a href="javascript:history.back()" style="color: #000000; font-size: 20px;"><i class="fa-solid fa-arrow-right-from-bracket"id="exit" style="transform:rotate(180deg); margin-right: 20px;font-size: 24px; color:  #000000;margin-top: 20px;margin-left: 20px;"></i>Назад</a>
+    <div id="popup1" class="popup">
+        <h2>Диагноз от {{diagnosis.date|date:"d.m.Y. h:m"}}</h2>
+        <div class="span-column">
+          <span class="item-title">Пациент</span>
+          <span class="item-date">{{patient.last_name}} {{patient.first_name}} {{patient.surname}} {{patient.age}} {{patient.age|age_pluralize}}</span>
+          <span class="item-title">Автор</span>
+          <span class="item-date">{{diagnosis.author}}</span>
+          <span class="item-title">Код</span>
+          <span class="item-date">{{diagnosis.code}}</span>
+          <span class="item-title">Вид</span>
+          <span class="item-date">{{diagnosis.get_kind_display}}</span>
+          <span class="item-title">Тип</span>
+          <span class="item-date">{{diagnosis.get_type_display}}</span>
+          <span class="item-title">Описание</span>
+          <span class="item-date">{{diagnosis.description}}</span>
+        </div>
+        <button onclick="Close()">Закрыть</button>
+    </div>
+{%endblock%}
+{%block scripts%}
+<script src="{%static 'scripts/close.js'%}"></script>
+{%endblock%}

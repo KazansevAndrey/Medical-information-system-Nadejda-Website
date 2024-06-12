@@ -1,5 +1,5 @@
 from .models import InitialExamination
 
-def get_examinations(med_card):
-    examinations = InitialExamination.objects.get(med_card=med_card)
+def get_examination(id):
+    examinations = InitialExamination.objects.get(id=id)
     return examinations

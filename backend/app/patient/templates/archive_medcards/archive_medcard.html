@@ -1,0 +1,65 @@
+{%extends 'department/base.html'%}
+{%load static%}
+{% load custom_tags %}
+{%block style%}
+<link href="{% static 'img/app-icon-all.png'%}" rel="shortcut icon">
+<link rel="stylesheet" href="{% static 'css/archive_medcard.css'%}">
+{%endblock%}
+{%block content%}
+    <a href="javascript:history.back()" style="color: #000000; font-size: 20px;"><i class="fa-solid fa-arrow-right-from-bracket"id="exit" style="transform:rotate(180deg); margin-right: 20px;font-size: 24px; color:  #000000;margin-top: 20px;margin-left: 20px;"></i>Назад</a>
+    <div id="popup1" class="popup">
+        <div id="content1" class="content1 active">
+            <div class="status">
+                <span>{{patient.last_name}} {{patient.first_name}} {{patient.surname}}, {{patient.age}} {{patient.age|age_pluralize}}</span> <br />
+                <span id="status">Статус МК: </span><span class="status-open" id="status">Закрыта</span>
+            </div>
+            <div class="info-section">
+                <div class="section-title">Информация о пациенте</div>
+                <div class="info-block">
+                    <div>
+                        <i class="fas fa-calendar-alt"></i>
+                        <span class="span_pokaz">Дата рождения: <span class="span_rez">{{patient.birth_date|date:"d.m.Y"}}</span></span>
+                    </div>
+                    <div>
+                        <i class="fas fa-id-card"></i>
+                        <span class="span_pokaz">ИИН: <span class="span_rez">{{patient.iin}}</span></span>
+                    </div>
+                </div>
+                <div class="info-block">
+                    <div>
+                        <i class="fas fa-info-circle"></i>
+                        <span class="span_pokaz">Номер МК: <span class="span_rez">{{medcard.med_card_number}}</span></span>
+                    </div>
+                    <div>
+                        <i class="fas fa-venus-mars"></i>
+                        <span class="span_pokaz">Пол: <span class="span_rez">{{patient.gender}}</span></span>
+                    </div>
+                </div>
+                <div class="info-block">
+                    <div>
+                        <i class="fas fa-ruler-vertical"></i>
+                        <span class="span_pokaz">Рост: <span class="span_rez">{{patient_metricks.height}} см</span></span>
+                    </div>
+                    <div>
+                        <i class="fas fa-weight"></i>
+                        <span class="span_pokaz">Вес: <span class="span_rez">{{patient_metricks.weight}} кг</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="warning-section">
+                <div class="btn-wrapper">
+                    <button class="btn_in2" onclick="get_info('{{medcard.id}}')">
+                        <i class="fas fa-hospital"></i>
+                        <span>Данные о госпитализации</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button onclick="Close()">Закрыть</button>
+    </div>
+{%endblock%}
+{%block scripts%}
+<script src="{% static 'scripts/close.js'%}"></script>
+<script src="{% static 'scripts/hospitalization_infotmation.js'%}"></script>
+<script src="https://kit.fontawesome.com/09ef455c42.js" crossorigin="anonymous"></script>
+{%endblock%}

@@ -14,11 +14,11 @@ def main_data_view(request, patient_id):
         return redirect(settings.LOGIN_URL)
     
     patient = get_patient(patient_id)
-    hospitalization = get_hospitalization_of_patient(patient_id)
-    metricks = get_metricks_of_patient(patient_id)
     med_card = get_current_medcard(patient_id)
+    hospitalization = get_hospitalization(med_card)
+    metricks = get_metricks(med_card)
     print(med_card)
-    doctor_name = get_doctor_full_name(request)
+    doctor_name = get_doctor_full_name(request.user)
     department = get_department(hospitalization)
     analyzes = get_items(Analysis, med_card)
     examinations = get_items(InitialExamination, med_card)
@@ -32,10 +32,46 @@ def main_data_view(request, patient_id):
         'patient': patient,
         'hospitalization': hospitalization,
         'metricks': metricks,
-        'med_card': med_card,
+        'medcard': med_card,
         'analyzes':analyzes,
         'diagnoses':diagnoses,
         'diaries':diaries,
         'examinations':examinations
     }
     return render(request, 'basic_patient_data/medcard.html', context)
+
+
+def archive_medcards_list_view(request, patient_id):
+    archive_hospitalizations = get_archive_hospitalizations(patient_id)
+    patient = get_patient(patient_id)
+    context = {
+        'archive_hospitalizations': archive_hospitalizations,
+        'patient':patient,
+    }
+    return render(request, 'archive_medcards/archive_medcards_list.html', context=context)
+
+def archive_medcard_view(request, patient_id, medcard_id):
+    medcard = get_medcard(medcard_id)
+    patient = get_patient(patient_id)
+    patient_metricks = get_metricks(medcard)
+    context = {
+        'medcard': medcard,
+        'patient':patient,
+        'patient_metricks': patient_metricks
+    }
+    return render(request, 'archive_medcards/archive_medcard.html', context=context)
+
+def hospitalization_info_view(request, patient_id, medcard_id=None):
+    if medcard_id:
+        hospitalization = get_hospitalization(medcard_id)
+    else:
+        medcard = get_current_medcard(patient_id)
+        hospitalization = get_hospitalization(medcard)
+    doctor_name = get_doctor_full_name(hospitalization.doctor_id)
+    department = hospitalization.department_id
+    context = {
+        'hospitalization':hospitalization,
+        'doctor_name':doctor_name,
+        'department':department
+    }
+    return render(request, 'hospitalization_data/hospitalization_data.html', context)

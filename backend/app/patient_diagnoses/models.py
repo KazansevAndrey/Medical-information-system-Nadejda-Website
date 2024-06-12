@@ -15,13 +15,12 @@ class Diagnoses(models.Model):
     author = models.ForeignKey(Doctor, on_delete=models.SET_NULL, null=True )
     med_card = models.ForeignKey(MedCard, on_delete=models.CASCADE, null=True)
     code = models.ForeignKey(DiagnosesName, on_delete=models.CASCADE)
-    kind_choices = [('p', 'Предварительный'), ('c', 'Клинический'), ('f', 'Окончательный')]
-    kind = models.CharField(max_length=1, choices=kind_choices, null=True, blank=True)
+    kind_choices = [('pr', 'Предварительный'), ('cl', 'Клинический'), ('fi', 'Окончательный'), ('pa', 'Патологоанатомический'), ('st', 'Этапный')] # Патологоанатомический, этапный
+    kind = models.CharField(max_length=2, choices=kind_choices, null=True, blank=True)
     type_choices = [('main', 'Основное'), ('сopg', 'Конкурирующее'), ('back', 'Фоновое'), ('copn', 'Осложнение')]
-    types = models.CharField(max_length=4, choices=type_choices, null=True, blank=True)
+    type = models.CharField(max_length=4, choices=type_choices, null=True, blank=True)
     description = models.CharField(max_length=500, null=True, blank=True)
     date = models.DateTimeField(default=timezone.now)
-
-
+    
     def __str__(self):
-        return f'{self.code} - {self.patient}'
+        return f'{self.code}'
