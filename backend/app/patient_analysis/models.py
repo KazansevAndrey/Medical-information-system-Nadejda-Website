@@ -24,7 +24,7 @@ class Analysis(models.Model):
     analysis_name = models.ForeignKey(AnalysisName, on_delete=models.CASCADE)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     med_card = models.ForeignKey(MedCard, on_delete=models.CASCADE)
-    date_taken = models.DateTimeField()
+    date = models.DateTimeField()
     status_choices = [
         ('Принят на работу', 'Pending'),
         ('Завершен', 'Completed'),

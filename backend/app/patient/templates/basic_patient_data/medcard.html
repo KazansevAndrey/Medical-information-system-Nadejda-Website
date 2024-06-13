@@ -100,24 +100,25 @@
       <div class="forms">
         <form class="form_class">
           <select name="categories" id="categories" class="ds-select">
-            <option value="">Все</option>
-            <option value="1">Анализы</option>
-            <option value="2">Выбор 2</option>
+            <option value="all">Все</option>
+            <option value="analyzes">Анализы</option>
+            <option value="examination">Первичный осмотр</option>
+            <option value="diagnoses">Дигнозы</option>
+            <option value="diaries">Дневники</option>
           </select>
         </form>
         <form class="form_class">
-          <select name="data_select" id="data_select" class="ds-select">
-            <option value="">За все время</option>
-            <option value="1">Сегодня</option>
-            <option value="2">Вчера</option>
-            <option value="3">Последние 2 дня</option>
+          <select name="data" id="data" class="ds-select">
+            <option value="all_time">За все время</option>
+            <option value="today">Сегодня</option>
+            <option value="yesterday">Вчера</option>
+            <option value="last_2_days">Последние 2 дня</option>
           </select>
         </form>
         <form class="form_class">
-          <select name="categories_select" id="categories_select" class="ds-select" onchange="showContent2(this.value)">
-            <option value="">Категории</option>
-            <option value="1">По категориям</option>
-            <option value="2">По хронологии</option>
+          <select name="categories_select" id="list_type" class="ds-select" onchange="showContent2(this.value)">
+            <option value="by_category">По категориям</option>
+            <option value="chronologically">По хронологии</option>
           </select>
         </form>
       </div>
@@ -127,14 +128,14 @@
       </div>
       <div id="content11" class="content11">
         <div class="buttons-vertical">
-          <div class="button" onclick="toggleDropdown1('dropdown1')">
+          <div id="analyzes" class="button" onclick="toggleDropdown1('dropdown1')">
             <span class="button-title">Результаты анализов</span>
             <span class="button-count">({{analyzes.count}})</span>
           </div>
           
           <div id="dropdown1" class="dropdown1">
             {%for analisis in analyzes%}
-            <div class="dropdown-item" onclick="analyzes('{{analisis.id}}')" id="{{analisis}}">
+            <div class="dropdown-item" onclick="analyzes('{{analisis.id}}')" id="analisis">
               <div class="span-column">
                 <span class="item-title">{{analisis.analysis_name}}</span>
                 <span class="item-date">{{analisis.date_taken|date:"d.m.Y"}}</span>
@@ -143,7 +144,7 @@
             </div>
             {%endfor%}
           </div>
-          <div class="button" onclick="toggleDropdown1('dropdown2')">
+          <div id="examinations"class="button" onclick="toggleDropdown1('dropdown2')">
             <span class="button-title">Первичный осмотр</span>
             <span class="button-count">({{examinations.count}})</span>
           </div>
@@ -159,7 +160,7 @@
             {%endfor%}
             
           </div>
-          <div class="button" onclick="toggleDropdown1('dropdown3')">
+          <div id="diagnoses" class="button" onclick="toggleDropdown1('dropdown3')">
             <span class="button-title">Диагнозы</span>
             <span class="button-count">({{diagnoses.count}})</span>
           </div>
@@ -175,7 +176,7 @@
             </div>
             {% endfor %}
           </div>
-          <div class="button" onclick="toggleDropdown1('dropdown4')">
+          <div id="diaries" class="button" onclick="toggleDropdown1('dropdown4')">
             <span class="button-title">Дневники</span>
             <span class="button-count">({{diaries.count}})</span>
           </div>

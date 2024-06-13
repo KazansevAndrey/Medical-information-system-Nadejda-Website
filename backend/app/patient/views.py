@@ -75,3 +75,28 @@ def hospitalization_info_view(request, patient_id, medcard_id=None):
         'department':department
     }
     return render(request, 'hospitalization_data/hospitalization_data.html', context)
+
+def sorting_view(request, patient_id, list_type, category, data):
+    if request.is_ajax():
+        patient = get_patient(patient_id)
+        med_card = get_current_medcard(patient_id)
+        
+        if category == "all": 
+            analyzes = get_items(Analysis, med_card)
+            examinations = get_items(InitialExamination, med_card)
+            diagnoses = get_items(Diagnoses, med_card)
+            diaries = get_items(Diarie, med_card)
+        else:
+            analyzes=examinations=diagnoses=diaries=None
+            if category == 'analyzes':
+                analyzes = get_items(Analysis, med_card)
+            elif category == 'examinations':
+                examinations = get_items(InitialExamination, med_card)
+            elif category == 'diagnoses':
+                diagnoses = get_items(Diagnoses, med_card)
+            elif category == 'diaries':
+                diaries = get_items(Diarie, med_card)
+        
+       if list_type == 'chronologically':
+            pass
+
