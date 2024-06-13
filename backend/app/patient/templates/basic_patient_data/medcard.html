@@ -7,22 +7,9 @@
 <link rel="stylesheet" href={% static "css/medcard.css"%}>
 {%endblock%}
 {%block header%}
-  <header>     
-      <a href="{% url 'department:department' 'all'%}"><i class="fa-solid fa-arrow-right-from-bracket"id="exit"></i></a>
-      <div style="flex-direction: row;width: 100%; max-width: 100%; display: flex; justify-content: space-between; align-items: center;">
-      <a href="{% url 'department:department' 'all'%}"><img src="{% static 'img/head-logo.png'%}" alt="logo" class="logo"></a>
-<form>
-  <p>Ваше отделение: {{department.name}}</p>
-</form>
-        <div style="position: relative; display: inline-block;">
-            <a href="#" class="dropdown-toggle"><i class="fa-solid fa-user-nurse doctor doctor-icon"></i><span class="doctor-name">{{doctor_name}}</span></a>
-            <div class="dropdown-menu">
-                <div class="doctor-name">{{doctor_name}}</div>
-                <button class="logout-button" onclick="Exit()">Выход</button>
-            </div>
-        </div>
-    </div>
-</header>
+    <header>     
+        <i class="fa-solid fa-xmark" style="margin-left: 99%; font-size: 20px; cursor: pointer;" onclick="gotodep()"></i>
+  </header>
 {%endblock%}
 {%block content%}
     <div class="block1">
@@ -41,27 +28,27 @@
         <div class="info-block">
           <div>
             <i class="fas fa-calendar-alt"></i>
-            <span class="span_pokaz">Дата рождения: <span class="span_rez">{{patient.birth_date}}</span></span>
+            <span class="span_pokaz">Дата рождения: <span class="span_rez" id="dob">{{patient.birth_date}}</span></span>
           </div>
           <div>
-            <i class="fas fa-id-card"></i> <span class="span_pokaz">ИИН: <span class="span_rez">{{patient.iin}}</span></span>
+            <i class="fas fa-id-card"></i> <span class="span_pokaz">ИИН: <span class="span_rez" id="iin">{{patient.iin}}</span></span>
           </div>
         </div>
         <div class="info-block">
           <div>
-            <i class="fas fa-info-circle"></i> <span class="span_pokaz">Номер МК: <span class="span_rez">{{med_card.med_card_number}}</span></span>
+            <i class="fas fa-info-circle"></i> <span class="span_pokaz">Номер МК: <span class="span_rez" id="mk_number">{{med_card.med_card_number}}</span></span>
           </div>
-          <div><i class="fas fa-venus-mars"></i> <span class="span_pokaz">Пол: <span class="span_rez"> {{patient.gender}} </span></span></div>
+          <div><i class="fas fa-venus-mars"></i> <span class="span_pokaz">Пол: <span class="span_rez" id="gender"> {{patient.gender}} </span></span></div>
         </div>
         <div class="info-block">
           <div>
-            <i class="fas fa-ruler-vertical"></i> <span class="span_pokaz">Рост: <span class="span_rez"> {{metricks.height}} см</span></span>
+            <i class="fas fa-ruler-vertical"></i> <span class="span_pokaz">Рост: <span class="span_rez" id="height"> {{metricks.height}} см</span></span>
           </div>
-          <div><i class="fas fa-weight"></i> <span class="span_pokaz">Вес: <span class="span_rez"> {{metricks.weight}} кг</span></span></div>
+          <div><i class="fas fa-weight"></i> <span class="span_pokaz">Вес: <span class="span_rez" id="weight"> {{metricks.weight}} кг</span></span></div>
         </div>
       </div>
       <div class="warning-section">
-        <div class="section-title">Предупреждения</div>
+        <div class="section-title">Сведения</div>
         <div class="btn-wrapper">
           <button class="btn_in2 reanimation" style="background: #f80202b9"> <!-- у реаниматион менять дисплей ноне если он не в реанимации, дисплей флекс если в реанимации-->
             <i class="fas fa-exclamation-triangle"></i>
@@ -82,19 +69,20 @@
         <div class="info-block">
           <div>
             <i class="fas fa-thermometer-half"></i>
-            <span class="span_pokaz">Температура: <span class="span_rez"> {{metricks.temperatury}}</span></span>
+            <span class="span_pokaz">Температура: <span class="span_rez" id="temperature"> {{metricks.temperatury}}</span></span>
           </div>
-          <div><i class="fas fa-heartbeat"></i> <span class="span_pokaz">АД: <span class="span_rez"> {{metricks.pressure}} </span></span></div>
+          <div><i class="fas fa-heartbeat"></i> <span class="span_pokaz">АД: <span class="span_rez" id="bp"> {{metricks.pressure}} </span></span></div>
         </div>
         <div class="info-block">
-          <div><i class="fas fa-heart"></i> <span class="span_pokaz">ЧСС: <span class="span_rez"> {{metricks.puls}} </span></span></div>
-          <div><i class="fas fa-tint"></i> <span class="span_pokaz">Сатурация: <span class="span_rez"> {{metricks.saturation}} </span></span></div>
+          <div><i class="fas fa-heart"></i> <span class="span_pokaz">ЧСС: <span class="span_rez" id="pulse"> {{metricks.puls}} </span></span></div>
+          <div><i class="fas fa-tint"></i> <span class="span_pokaz">Сатурация: <span class="span_rez" id="saturation"> {{metricks.saturation}} </span></span></div>
         </div>
         <div class="info-block">
-          <div><i class="fas fa-lungs"></i> <span class="span_pokaz">ЧДД: <span class="span_rez"> {{metricks.resperatory_rate}} </span></span></div>
-          <div><i class="fas fa-hashtag"></i> <span class="span_pokaz">Выпускники: <span class="span_rez"> 0 </span></span></div>
+          <div><i class="fas fa-lungs"></i> <span class="span_pokaz">ЧДД: <span class="span_rez" id="rr"> {{metricks.resperatory_rate}} </span></span></div>
+          <div><i class="fas fa-hashtag"></i> <span class="span_pokaz">Выпускники: <span class="span_rez" id="pusk"> 0 </span></span></div>
         </div>
       </div>
+      <a id="editBtn" style="cursor: pointer; color: rgb(27, 76, 181); border-bottom: 1px solid rgb(27, 77, 185);">Редактировать</a>
     </div>
     <div id="content2" class="content2">
       <div class="forms">
@@ -191,6 +179,7 @@
             </div>
             {%endfor%}
           </div>
+          <a id="new_diaries" style="cursor: pointer; color: rgb(27, 76, 181); border-bottom: 1px solid rgb(27, 77, 185); width: fit-content;" onclick="new_diaries()">Добавить дневник</a>
         </div>
       </div>
       <div id="content12" class="content12">
@@ -285,9 +274,41 @@
             </div>
             <i class="fa-solid fa-arrow-right awesome"></i>
           </div>
+            <a id="new_diaries" style="cursor: pointer; color: rgb(27, 76, 181); border-bottom: 1px solid rgb(27, 77, 185); width: fit-content;">Добавить дневник</a>
         </div>
       </div>
     </div>
+    <div id="custom-modal" class="modal">
+      <div class="custom-modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <h2>Добавить дневник</h2>
+          <form>
+              <label for="patient-name">Пациент:</label>
+              <input type="text" id="patient-name" name="patient-name" value="Константиновский Константин Константинович" disabled>
+
+              <label for="diary-date">Указать дату дневника:</label>
+              <input type="date" id="diary-date" name="diary-date">
+
+              <label for="diary-type">Выбрать вид дневника:</label>
+              <select id="diary-type" name="diary-type">
+                  <option value="general">Ежедневный обход</option>
+                  <option value="medication">Обзвон</option>
+                  <option value="progress">Общий обход</option>
+              </select>
+
+              <label for="main-text">Состав обхода</label>
+              <textarea id="main-text" name="main-text" placeholder="Введите состав обхода"></textarea>
+              
+              <label for="sub-text">Данные объективного осмотра</label>
+              <textarea id="sub-text" name="sub-text" placeholder="Введите данные объективного осмотра"></textarea>
+              
+              <label for="extra-text">Дополнительные сведения</label>
+              <textarea id="extra-text" name="extra-text" placeholder="Введите дополнительные сведения"></textarea>
+              
+              <button type="submit">Добавить</button>
+          </form>
+      </div>
+  </div>
 {%endblock%}
 {%block scripts%}
     <script src="{% static 'scripts/medcard.js'%}"></script>
