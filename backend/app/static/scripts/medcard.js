@@ -28,6 +28,9 @@ window.location.href = "analysis/" + id;
   function diagnoses(id) {
     window.location.href = "diagnoses/" + id;
   }
+function Exit() {
+window.location.href = "/index.html";
+}
 
   function showContent(contentId) {
     document.querySelectorAll(".content1, .content2").forEach((content) => {
