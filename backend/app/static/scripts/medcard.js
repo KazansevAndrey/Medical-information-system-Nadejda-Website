@@ -132,7 +132,6 @@ function enableEditing() {
   const elements = [
     { id: 'dob', type: 'date', value: '2001-05-17', placeholder: 'ГГГГ-ММ-ДД' },
     { id: 'iin', type: 'number', placeholder: 'Ровно 12 цифр' },
-    { id: 'mk_number', type: 'text', placeholder: 'Не более 4 символов' },
     { id: 'gender', type: 'select', options: ['М', 'Ж'] },
     { id: 'height', type: 'number', suffix: ' см', placeholder: 'Введите число' },
     { id: 'weight', type: 'number', suffix: ' кг', placeholder: 'Введите число' },
@@ -163,7 +162,7 @@ function enableEditing() {
 
 function saveChanges() {
   const elements = [
-    'dob', 'iin', 'mk_number', 'gender', 'height', 'weight',
+    'dob', 'iin', 'gender', 'height', 'weight',
     'temperature', 'bp', 'pulse', 'saturation', 'rr'
   ];
 
@@ -204,7 +203,6 @@ function validateForm() {
   let isValid = true;
 
   isValid = isValid && validateBP();
-  isValid = isValid && validateMKNumber();
   isValid = isValid && validateTemperature();
   isValid = isValid && validatePulse();
   isValid = isValid && validateSaturation();
@@ -325,4 +323,60 @@ function getCookie(name) {
     }
   }
   return cookieValue;
+}
+// модальное окно 
+document.getElementById("new_diaries").addEventListener("click", function() {
+  document.getElementById("custom-modal").style.display = "block";
+  const currentDate = new Date().toISOString().split('T')[0];
+  document.getElementById("diary-date").value = currentDate;
+});
+
+function closeModal() {
+  document.getElementById("custom-modal").style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == document.getElementById("custom-modal")) {
+      document.getElementById("custom-modal").style.display = "none";
+  }
+}
+// отправка данных модального окна на сервер
+document.querySelector("form").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData.entries());
+
+    fetch('/add-diary/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken') // Add CSRF token for security
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        closeModal();
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+});
+
+// Function to get CSRF token from cookies
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
