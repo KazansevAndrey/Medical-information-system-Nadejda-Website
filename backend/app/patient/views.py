@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.http import JsonResponse
 from .services import *
 from accounts.doctor_services import get_doctor_full_name
 from app import settings
@@ -76,27 +77,46 @@ def hospitalization_info_view(request, patient_id, medcard_id=None):
     }
     return render(request, 'hospitalization_data/hospitalization_data.html', context)
 
-def sorting_view(request, patient_id, list_type, category, data):
+
+def sorting_view(request, patient_id):
     if request.is_ajax():
-        patient = get_patient(patient_id)
+        list_type = request.GET.get('list_type')
+        category = request.GET.get('category')
+        date = request.GET.get('date')
         med_card = get_current_medcard(patient_id)
-        
-        if category == "all": 
-            analyzes = get_items(Analysis, med_card)
-            examinations = get_items(InitialExamination, med_card)
-            diagnoses = get_items(Diagnoses, med_card)
-            diaries = get_items(Diarie, med_card)
-        else:
+        if category == "all": # Не выбрана категория. 
+
+            if list_type == 'by_category': 
+                analyzes = sorting_by_time(date, get_items(Analysis, med_card))
+                examinations = sorting_by_time(date, get_items(InitialExamination, med_card))
+                diagnoses = sorting_by_time(date, get_items(Diagnoses, med_card))
+                diaries = sorting_by_time(date, get_items(Diarie, med_card))
+
+                formatted_analyzes = format_items(analyzes)
+                formatted_examinations = format_items(examinations)
+                formatted_diagnoses = format_items(diagnoses)
+                formatted_diaries = format_items(diaries)
+
+                sent_data = {'analyzes': formatted_analyzes,
+                             'analyzes_count': analyzes.count(),
+                             'examinations': formatted_examinations,
+                             'examinations_count':examinations.count(),
+                             'diagnoses': formatted_diagnoses,
+                             'diagnoses_count': diagnoses.count(),
+                             'diaries':formatted_diaries,
+                             'diaries_count': diaries.count()}
+                print(sent_data)
+            elif list_type == 'chronologically':
+                items = format_items(sorting_by_time(date, get_hronologically_all_items(med_card))) # json список каждого item с нужными аттрибутами
+                print(items)
+                sent_data = {'items':items}
+            
+        else: # Выбрана конкретная категория - сортируем по хронологии 
             analyzes=examinations=diagnoses=diaries=None
-            if category == 'analyzes':
-                analyzes = get_items(Analysis, med_card)
-            elif category == 'examinations':
-                examinations = get_items(InitialExamination, med_card)
-            elif category == 'diagnoses':
-                diagnoses = get_items(Diagnoses, med_card)
-            elif category == 'diaries':
-                diaries = get_items(Diarie, med_card)
+            category_items = format_items(sorting_by_time(date, get_hronologically(get_items_by_category(category, med_card))))
+            sent_data = {'category_items': category_items}
+            
+        return JsonResponse(sent_data)
         
-       if list_type == 'chronologically':
-            pass
+       
 

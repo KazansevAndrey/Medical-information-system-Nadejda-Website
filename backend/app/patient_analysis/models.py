@@ -45,7 +45,7 @@ class Analysis(models.Model):
         return results        
     
     def __str__(self):
-        return f'{self.patient} - {self.analysis_name} Дата взятия: {self.date_taken}'
+        return f'{self.patient} - {self.analysis_name} Дата взятия: {self.date}'
 
 
 class AnalysisResult(models.Model):

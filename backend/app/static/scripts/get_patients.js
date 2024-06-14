@@ -41,7 +41,6 @@ function search_patients(){
         dataType: 'json',
         success: function(data) {
             // Очищаем контейнеры с пациентами
-            console.log("успешно")
             var depPatientsContainer = $('.patient-list');
             var docPatientsContainer = $('.my-patients');
             depPatientsContainer.empty();
