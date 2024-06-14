@@ -1,3 +1,4 @@
+from pytz import timezone as pytz_timezone
 from django.utils import timezone
 from .models import Patient, Hospitalization, PatientMetrick, MedCard
 from patient_analysis.models import Analysis
@@ -86,7 +87,7 @@ def format_items(items): # Формируем json ответ для перед�
         elif isinstance(item, Diarie):
             formatted_items.append({
                 'type': 'diary',
-                'date': item.date.strftime('%d.%m.%Y %H:%M'),
+                'date': timezone.localtime(item.date).strftime('%d.%m.%Y %H:%M'),
                 'additional': item.additional,
                 'id': item.id
             })
@@ -113,41 +114,45 @@ def get_hronologically_all_items(med_card):
     diagnoses = Diagnoses.objects.filter(med_card=med_card)
     diaries = Diarie.objects.filter(med_card=med_card)
 
-    # Объединяем все данные в один список
     combined_list = sorted(
         chain(analyzes, examinations, diagnoses, diaries),
-        key=attrgetter('date'))
+        key=attrgetter('date')
+    )
+    print("Комбинированный список", combined_list)
     return combined_list
 
 def get_hronologically(items):
     print(items)
-    combined_list = sorted(items, key=attrgetter('date')) 
+    combined_list = items.order_by('date') 
     return combined_list
 
 def sorting_by_time(period, items):
-    tz = pytz.timezone('Asia/Yekaterinburg')
+    common_tz = timezone.get_current_timezone()
     if period == 'today':
-        today_min = datetime.combine(timezone.now().date(), time().min)
-        today_max = datetime.combine(timezone.now().date(), time().max)
-        if isinstance(items, list):
-            # Удаляем инфу о часовых поясах и сравниваем
-            return [item for item in items if today_min.replace(tzinfo=None) <= item.date.replace(tzinfo=None) <= today_max.replace(tzinfo=None)] 
+        today_min = datetime.combine(timezone.now().date(), time().min).replace(tzinfo=common_tz)
+        today_max = datetime.combine(timezone.now().date(), time().max).replace(tzinfo=common_tz)
+        if isinstance(items, list):  # Если все категории
+            return [item for item in items if today_min <= item.date.astimezone(common_tz) <= today_max]
         return items.filter(date__range=(today_min, today_max))
     elif period == 'yesterday':
         yesterday = timezone.now().date() - timedelta(days=1)
-        yesterday_max = datetime.combine(yesterday, time.max) 
-        yesterday_min = datetime.combine(yesterday, time.min) 
-        if isinstance(items, list):
-            return [item for item in items if today_min.replace(tzinfo=None) <= item.date.replace(tzinfo=None) <= today_max.replace(tzinfo=None)] 
+        yesterday_max = datetime.combine(yesterday, time.max).replace(tzinfo=common_tz)
+        yesterday_min = datetime.combine(yesterday, time.min).replace(tzinfo=common_tz) 
 
+        if isinstance(items, list):  # Если все категории
+            return [item for item in items if yesterday_min <= item.date.astimezone(common_tz) <= yesterday_max]
         return items.filter(date__range=(yesterday_min, yesterday_max))
     
     elif period == 'last_2_days':
-        yesterday = timezone.now().date()-timedelta(days=1)
-        yesterday_min = datetime.combine(yesterday, time.min) 
-        today_max = datetime.combine(timezone.now().date(), time().max)
-        return items.filter(date__range=(yesterday_min, today_max))
+        last_2_days = timezone.now().date()-timedelta(days=1)
+        last_2_days_min = datetime.combine(last_2_days, time.min).replace(tzinfo=common_tz)
+        last_2_days_max = datetime.combine(timezone.now().date(), time().max).replace(tzinfo=common_tz)
+        if isinstance(items, list): # Если все категории
+            return [item for item in items if last_2_days_min <= item.date.astimezone(common_tz) <= last_2_days_max]
+        
+        return items.filter(date__range=(last_2_days_min, last_2_days_max))
 
     else:
         return items
     
+

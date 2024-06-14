@@ -11,7 +11,7 @@
     {%block content%}
     <a href="javascript:history.back()" style="color: #000000; font-size: 20px;"><i class="fa-solid fa-arrow-right-from-bracket"id="exit" style="transform:rotate(180deg); margin-right: 20px;font-size: 24px; color:  #000000;margin-top: 20px;margin-left: 20px;"></i>Назад</a>
     <div id="popup1" class="popup">
-        <h2>Анализ от {{analysis.date|date:"d.m.Y. h:m"}}</h2>
+        <h2>Анализ от {{analysis.date|date:"d.m.Y H:i"}}</h2>
         <div class="span-column">
             <span class="item-title">Пациент</span>
             <span class="item-date">{{patient.last_name}} {{patient.first_name}} {{patient.surname}} {{patient.age}} {{patient.age|age_pluralize}}</span>

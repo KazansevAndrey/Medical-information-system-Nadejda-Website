@@ -68,6 +68,7 @@ function FilterRecords(patient_id){
                         analyzesContainer.append(analisisItemTemplate(analysis))})
                     
                     data.examinations.forEach(function(examination){
+                        console.log(examination.date)
                         examinationsContainer.append(examinationItemTemplate(examination))})
                     
                     data.diagnoses.forEach(function(diagnose){

@@ -16,7 +16,7 @@
           <div class="dropdown-item" onclick="diagnoses('{{diagnosis.id}}')" id="d1">
             <div class="span-column1">
                 <span class="item-title">{{diagnosis.code}}</span>
-                <span class="item-date">{{diagnosis.date|date:"d.m.Y. h:m"}}</span>
+                <span class="item-date">{{diagnosis.date|date:"d.m.Y H:i"}}</span>
                 <span class="item-date">{{diagnosis.get_kind_display}}</span>
             </div>
             <i class="fa-solid fa-arrow-right awesome"></i>
