@@ -61,6 +61,8 @@ function FilterRecords(patient_id){
         success: function(data) {
             items_conteiner = $('#items-container')
             if(category == 'all'){
+                $('#list_type').prop('disabled', false);
+                
                 if(list_type == 'by_category'){
                     showCategoriesBlock()
                     update_categories(data) // Все очищаем и записываем count
@@ -88,6 +90,10 @@ function FilterRecords(patient_id){
                 })}}
 
             else{
+                listTypeSelect = $('#list_type')
+                listTypeSelect.val('chronologically')
+                $('#list_type').prop('disabled', "by_category");
+                
                 showNoCategoryBlock();
                 itemsContainer.empty();
                 data.category_items.forEach(function(item) {
