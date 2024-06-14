@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import JsonResponse
+from django.db.models import Q
 from .services import *
 from accounts.doctor_services import get_doctor_full_name
 from app import settings
@@ -118,5 +119,15 @@ def sorting_view(request, patient_id):
             
         return JsonResponse(sent_data)
         
-       
+def search_analyses_view(request, patient_id):
+    query = request.GET.get('q')
+    med_card = get_current_medcard(patient_id)
+    analyzes = format_items(get_items(Analysis, med_card).filter(
+         Q(analysis_name__name__iregex=query) | Q(analysis_name__code__iregex=query) 
+    ))
+    sent_data = {
+        'analyzes':analyzes
+    }
+    return JsonResponse(sent_data)
+
 

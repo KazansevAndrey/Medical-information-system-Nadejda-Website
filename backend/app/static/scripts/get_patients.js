@@ -32,7 +32,6 @@ function ShowPatients(){
 function search_patients(){
     var departmentId = document.getElementById('department-select').value;
     var query = document.getElementById('search-input').value;
-    console.log(123123123123)
     $.ajax({
         url: `/department/${departmentId}/search_patients`, // URL для поиска пациентов
         data: {

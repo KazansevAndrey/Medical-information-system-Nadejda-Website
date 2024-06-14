@@ -59,7 +59,6 @@ function FilterRecords(patient_id){
         },
         dataType: 'json',
         success: function(data) {
-            items_conteiner = $('#items-container')
             if(category == 'all'){
                 $('#list_type').prop('disabled', false);
                 
@@ -104,7 +103,24 @@ function FilterRecords(patient_id){
         }}})}
         
 
-
+function search_analyses(patient_id){
+    var query = document.getElementById('search-input').value;
+    console.log("Активирована функция поиск анализов")
+    $.ajax({
+        url: `${patient_id}/search_analyses`, // URL для поиска пациентов
+        data: {
+            'q': query
+        },
+        dataType: 'json',
+        success: function(data){
+            itemsContainer.empty();
+            showNoCategoryBlock();
+            data.analyzes.forEach(function(analisis) {
+                itemsContainer.append(analisisItemTemplate(analisis));
+            })}
+        }
+    )
+}
 const analisisItemTemplate = (analysis) => `
 <div class="dropdown-item" onclick="analyzes('${analysis.id}')">
               <div class="span-column">
