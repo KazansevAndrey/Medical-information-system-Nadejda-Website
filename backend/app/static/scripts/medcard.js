@@ -3,6 +3,7 @@ const dropdownToggle = document.querySelector('.dropdown-toggle');
 const dropdownMenu = document.querySelector('.dropdown-menu');
 const doctorIcon = document.querySelector('.doctor');
 
+
 dropdownToggle.addEventListener('click', function(event) {
     event.preventDefault();
     dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
@@ -14,26 +15,28 @@ document.addEventListener('click', function(event) {
     }
 });
 });
-document.getElementById('editBtn').addEventListener('click', function() {
+
+// Отработка нажатия на кнопку редактирования.
+function EditInfoAboutPatient(patient_id, birthdate) {
   const editBtn = document.getElementById('editBtn');
   if (editBtn.textContent === 'Редактировать') {
     // Переключение на режим редактирования
-    enableEditing();
+    enableEditing(birthdate);
     editBtn.textContent = 'Сохранить';
   } else {
     // Сохранение данных
     if (validateForm()) {
-      saveChanges();
+      saveChanges(patient_id);
       editBtn.textContent = 'Редактировать';
     } else {
       console.error('Пожалуйста, введите корректные данные для всех полей.');
     }
   }
-});
+};
 
-function enableEditing() {
+function enableEditing(birthdate) {
   const elements = [
-    { id: 'dob', type: 'date', value: '2001-05-17', placeholder: 'ГГГГ-ММ-ДД' },
+    { id: 'dob', type: 'date', value: birthdate, placeholder: 'ГГГГ-ММ-ДД' },
     { id: 'iin', type: 'number', placeholder: 'Ровно 12 цифр' },
     { id: 'gender', type: 'select', options: ['М', 'Ж'] },
     { id: 'height', type: 'number', suffix: ' см', placeholder: 'Введите число' },
@@ -63,7 +66,7 @@ function enableEditing() {
 }
 
 
-function saveChanges() {
+function saveChanges(patient_id) {
   const elements = [
     'dob', 'iin', 'gender', 'height', 'weight',
     'temperature', 'bp', 'pulse', 'saturation', 'rr'
@@ -75,13 +78,14 @@ function saveChanges() {
     let value = inputElement.value;
     if (id === 'dob') {
       value = new Date(value).toISOString().split('T')[0];
+     
     }
     const suffix = inputElement.nextSibling?.textContent || '';
     document.getElementById(id).textContent = value + (suffix ? ` ${suffix}` : '');
     patientData[id] = value;
   });
 
-  fetch('/updatePatientData/', {
+  fetch(patient_id+'/update_patient_data', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -92,6 +96,7 @@ function saveChanges() {
   .then(response => response.json())
   .then(data => {
     if (data.success) {
+      location.reload();
       alert('Данные успешно обновлены!');
     } else {
       alert('Ошибка при обновлении данных.');
@@ -104,7 +109,6 @@ function saveChanges() {
 
 function validateForm() {
   let isValid = true;
-
   isValid = isValid && validateBP();
   isValid = isValid && validateTemperature();
   isValid = isValid && validatePulse();
@@ -228,11 +232,14 @@ function getCookie(name) {
   return cookieValue;
 }
 // модальное окно 
-document.getElementById("new_diaries").addEventListener("click", function() {
+function new_diaries(patient_id){
   document.getElementById("custom-modal").style.display = "block";
   const currentDate = new Date().toISOString().split('T')[0];
-  document.getElementById("diary-date").value = currentDate;
-});
+  document.getElementById("diary_date").value = currentDate;
+
+  }
+  
+
 
 function closeModal() {
   document.getElementById("custom-modal").style.display = "none";
@@ -244,13 +251,14 @@ window.onclick = function(event) {
   }
 }
 // отправка данных модального окна на сервер
-document.querySelector("form").addEventListener("submit", function(event) {
-    event.preventDefault();
+document.getElementById('custom-modal').addEventListener('submit', function(event) {
+    event.preventDefault(); // Предотвращаем стандартное поведение формы (отправку)
 
+    const patient_id = event.target.getAttribute('data-patient_id'); // 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
 
-    fetch('/add-diary/', {
+    fetch(patient_id + '/add-diary', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -266,7 +274,9 @@ document.querySelector("form").addEventListener("submit", function(event) {
     .catch((error) => {
         console.error('Error:', error);
     });
-});
+}
+)
+
 
 // Function to get CSRF token from cookies
 function getCookie(name) {
@@ -293,8 +303,9 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 function gotodep() {
-    window.location.href = "department.html";
+    window.location.href = "/";
   }
+
   function hospitalization_information(id) {
     window.location.href = id+"/hospitalization_info";
   }

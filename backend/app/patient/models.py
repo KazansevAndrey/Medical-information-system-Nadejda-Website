@@ -50,7 +50,7 @@ class PatientMetrick(models.Model):
     height = models.IntegerField(default=0)
     weight = models.IntegerField(default=0)
     temperatury = models.CharField(max_length=4)
-    puls = models.CharField(max_length=4)
+    pulse = models.CharField(max_length=4)
     resperatory_rate = models.CharField(max_length=3)
     pressure = models.CharField(max_length=7)
     saturation = models.CharField(max_length=4)
@@ -75,7 +75,8 @@ class Hospitalization(models.Model):
     hospitalization_choices = [('E', 'Экстренное (Первые 6 часов)'), ('M', 'Первые 24 часа'), ('P', 'Плановое')]
     hospitalization_type = models.CharField(max_length=1, choices=hospitalization_choices, default='M')
     ward = models.CharField(max_length=10, default='7') #Палата
-    reanimation = models.BooleanField()
+    reanimation_choices = [(True, 'В реанимации'), ( False, 'Не в реанимации')]
+    reanimation = models.BooleanField(choices=reanimation_choices)
     receipt_date = models.DateTimeField(default=timezone.now)
     date_of_discharge = models.DateTimeField(null=True, blank=True)
 

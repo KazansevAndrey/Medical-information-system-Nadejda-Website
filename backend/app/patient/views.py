@@ -1,8 +1,10 @@
+import json
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.db.models import Q
 from .services import *
+from patient_diary.diary_services import get_diaries_types, get_diary_type
 from accounts.doctor_services import get_doctor_full_name
 from app import settings
 from patient_analysis.models import Analysis
@@ -14,7 +16,6 @@ def main_data_view(request, patient_id):
     if not request.user.is_authenticated:
         print('пользователь не авторизован')
         return redirect(settings.LOGIN_URL)
-    
     patient = get_patient(patient_id)
     med_card = get_current_medcard(patient_id)
     hospitalization = get_hospitalization(med_card)
@@ -26,6 +27,7 @@ def main_data_view(request, patient_id):
     examinations = get_items(InitialExamination, med_card)
     diagnoses = get_items(Diagnoses, med_card)
     diaries = get_items(Diarie, med_card)
+    diaries_types = get_diaries_types()
     print(analyzes)
     
     context = {
@@ -38,7 +40,8 @@ def main_data_view(request, patient_id):
         'analyzes':analyzes,
         'diagnoses':diagnoses,
         'diaries':diaries,
-        'examinations':examinations
+        'examinations':examinations,
+        'diaries_types':diaries_types
     }
     return render(request, 'basic_patient_data/medcard.html', context)
 
@@ -79,7 +82,7 @@ def hospitalization_info_view(request, patient_id, medcard_id=None):
     return render(request, 'hospitalization_data/hospitalization_data.html', context)
 
 
-def sorting_view(request, patient_id):
+def sorting(request, patient_id):
     if request.is_ajax():
         list_type = request.GET.get('list_type')
         category = request.GET.get('category')
@@ -119,7 +122,7 @@ def sorting_view(request, patient_id):
             
         return JsonResponse(sent_data)
         
-def search_analyses_view(request, patient_id):
+def search_analyses(request, patient_id):
     query = request.GET.get('q')
     med_card = get_current_medcard(patient_id)
     analyzes = format_items(get_items(Analysis, med_card).filter(
@@ -130,4 +133,49 @@ def search_analyses_view(request, patient_id):
     }
     return JsonResponse(sent_data)
 
+def update_patient_data(request, patient_id):
+    if request.method == 'POST':
+        patient_data = json.loads(request.body)
+        print(patient_data)
+        # Обработка данных и сохранение в базу данных
+        # Пример:
+        patient = get_patient(patient_id)
+        medcard = get_current_medcard(patient_id)
+        metricks = get_metricks(medcard)
+        patient.birth_date = patient_data['dob']
+        patient.iin = patient_data['iin']
+        patient.gender = patient_data['gender']
+        metricks.height = patient_data['height']
+        metricks.weight = patient_data['weight']
+        metricks.temperatury = patient_data['temperature']
+        metricks.pressure = patient_data['bp']
+        metricks.pulse = patient_data['pulse']
+        metricks.saturation = patient_data['saturation']
+        metricks.resperatory_rate = patient_data['rr']
+        patient.save()
+        metricks.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False})
 
+def add_diary(request, patient_id):
+
+    if request.method == 'POST':
+        try:
+            diary_data = json.loads(request.body)
+            patient = get_patient(patient_id)
+            med_card = get_current_medcard(patient_id)
+            diary_type = get_diary_type(diary_data['diary_type'])
+            Diarie.objects.create(
+                diary_type = diary_type,
+                patient = patient,
+                author = request.user,
+                med_card = med_card,
+                bypass = diary_data['main_text'],
+                examination = diary_data['sub_text'],
+                additional = diary_data['extra_text'],
+                date = diary_data['diary_date'],
+            )
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'error': e})
+    return JsonResponse({'success': False, 'error': 'Invalid request'})

@@ -2,7 +2,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const dropdownToggle = document.querySelector('.dropdown-toggle');
     const dropdownMenu = document.querySelector('.dropdown-menu');
     const doctorIcon = document.querySelector('.doctor');
+    const patients = document.querySelectorAll('.patient-item');
 
+    patients.forEach(patient =>{
+    const status = patient.dataset.reanimation
+    const patient_name = patient.querySelector('span')
+    if(status=="True"){
+        patient_name.style.color = "red";
+        }
+    })
     dropdownToggle.addEventListener('click', function(event) {
         event.preventDefault();
         dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';

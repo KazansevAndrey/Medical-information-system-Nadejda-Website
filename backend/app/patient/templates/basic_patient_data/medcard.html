@@ -28,7 +28,7 @@
         <div class="info-block">
           <div>
             <i class="fas fa-calendar-alt"></i>
-            <span class="span_pokaz">Дата рождения: <span class="span_rez" id="dob">{{patient.birth_date}}</span></span>
+            <span class="span_pokaz">Дата рождения: <span class="span_rez" id="dob">{{patient.birth_date|date:"Y-m-d"}}</span></span>
           </div>
           <div>
             <i class="fas fa-id-card"></i> <span class="span_pokaz">ИИН: <span class="span_rez" id="iin">{{patient.iin}}</span></span>
@@ -36,7 +36,7 @@
         </div>
         <div class="info-block">
           <div>
-            <i class="fas fa-info-circle"></i> <span class="span_pokaz">Номер МК: <span class="span_rez" id="mk_number">{{med_card.med_card_number}}</span></span>
+            <i class="fas fa-info-circle"></i> <span class="span_pokaz">Номер МК: <span class="span_rez" id="mk_number">{{medcard.med_card_number}}</span></span>
           </div>
           <div><i class="fas fa-venus-mars"></i> <span class="span_pokaz">Пол: <span class="span_rez" id="gender"> {{patient.gender}} </span></span></div>
         </div>
@@ -74,7 +74,7 @@
           <div><i class="fas fa-heartbeat"></i> <span class="span_pokaz">АД: <span class="span_rez" id="bp"> {{metricks.pressure}} </span></span></div>
         </div>
         <div class="info-block">
-          <div><i class="fas fa-heart"></i> <span class="span_pokaz">ЧСС: <span class="span_rez" id="pulse"> {{metricks.puls}} </span></span></div>
+          <div><i class="fas fa-heart"></i> <span class="span_pokaz">ЧСС: <span class="span_rez" id="pulse"> {{metricks.pulse}} </span></span></div>
           <div><i class="fas fa-tint"></i> <span class="span_pokaz">Сатурация: <span class="span_rez" id="saturation"> {{metricks.saturation}} </span></span></div>
         </div>
         <div class="info-block">
@@ -82,7 +82,7 @@
           <div><i class="fas fa-hashtag"></i> <span class="span_pokaz">Выпускники: <span class="span_rez" id="pusk"> 0 </span></span></div>
         </div>
       </div>
-      <a id="editBtn" style="cursor: pointer; color: rgb(27, 76, 181); border-bottom: 1px solid rgb(27, 77, 185);">Редактировать</a>
+      <a id="editBtn" onclick="EditInfoAboutPatient('{{ patient.id }}', '{{ patient.birth_date|date:"Y-m-d" }}')" style="color: rgb(27, 76, 181); cursor: pointer;border-bottom: 1px solid rgb(27, 77, 185);">Редактировать</a>
     </div>
     <div id="content2" class="content2">
       <div class="forms">
@@ -180,7 +180,7 @@
             </div>
             {%endfor%}
           </div>
-          <a id="new_diaries" style="cursor: pointer; color: rgb(27, 76, 181); border-bottom: 1px solid rgb(27, 77, 185); margin-top: 6px; width: fit-content;" onclick="new_diaries()">Добавить дневник</a>
+          <a class="new_diaries" style="cursor: pointer; color: rgb(27, 76, 181); border-bottom: 1px solid rgb(27, 77, 185); margin-top: 6px; width: fit-content;" onclick="new_diaries('{{patient.id}}')">Добавить дневник</a>
         </div>
 
       </div>
@@ -188,37 +188,38 @@
       <div id="no-category-block" class="content12">
         <div id = 'items-container' class="buttons-vertical">
         </div>
-        <a id="new_diaries" style="cursor: pointer; color: rgb(27, 76, 181); border-bottom: 1px solid rgb(27, 77, 185); width: fit-content;" onclick="new_diaries()">Добавить дневник</a>
+        <a class="new_diaries" style="cursor: pointer; color: rgb(27, 76, 181); border-bottom: 1px solid rgb(27, 77, 185); margin-top: 6px; width: fit-content;" onclick="new_diaries('{{patient.id}}')">Добавить дневник</a>
       </div>
+
     </div>
     <div id="custom-modal" class="modal">
       <div class="custom-modal-content">
           <span class="close" onclick="closeModal()">&times;</span>
           <h2>Добавить дневник</h2>
-          <form>
-              <label for="patient-name">Пациент:</label>
-              <input type="text" id="patient-name" name="patient-name" value="Константиновский Константин Константинович" disabled>
+          <form data-patient_id = {{patient.id}}>
+              <label for="patient_name">Пациент:</label>
+              <input type="text" id="patient_name" name="patient_name" value="Константиновский Константин Константинович" disabled>
 
-              <label for="diary-date">Указать дату дневника:</label>
-              <input type="date" id="diary-date" name="diary-date">
+              <label for="diary_date">Указать дату дневника:</label>
+              <input type="date" id="diary_date" name="diary_date">
 
-              <label for="diary-type">Выбрать вид дневника:</label>
-              <select id="diary-type" name="diary-type">
-                  <option value="general">Ежедневный обход</option>
-                  <option value="medication">Обзвон</option>
-                  <option value="progress">Общий обход</option>
+              <label for="diary_type">Выбрать вид дневника:</label>
+              <select id="diary_type" name="diary_type">
+                {%for diary_type in diaries_types%}
+                  <option value="{{diary_type.id}}">{{diary_type.name}}</option>
+                {%endfor%}
               </select>
 
               <label for="main-text">Состав обхода</label>
-              <textarea id="main-text" name="main-text" placeholder="Введите состав обхода"></textarea>
+              <textarea id="main_text" name="main_text" placeholder="Введите состав обхода"></textarea>
               
               <label for="sub-text">Данные объективного осмотра</label>
-              <textarea id="sub-text" name="sub-text" placeholder="Введите данные объективного осмотра"></textarea>
+              <textarea id="sub_text" name="sub_text" placeholder="Введите данные объективного осмотра"></textarea>
               
-              <label for="extra-text">Дополнительные сведения</label>
-              <textarea id="extra-text" name="extra-text" placeholder="Введите дополнительные сведения"></textarea>
+              <label for="extra_text">Дополнительные сведения</label>
+              <textarea id="extra_text" name="extra_text" placeholder="Введите дополнительные сведения"></textarea>
               
-              <button type="submit">Добавить</button>
+              <button type="submit" >Добавить</button>
           </form>
       </div>
   </div>
