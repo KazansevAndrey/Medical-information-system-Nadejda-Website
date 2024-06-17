@@ -287,7 +287,7 @@ document.getElementById('custom-modal').addEventListener('submit', function(even
     .then(data => {
         console.log('Success:', data);
         location.reload();
-        
+
 
     })
     .catch((error) => {

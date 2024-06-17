@@ -43,7 +43,7 @@
     </div>
     <div class="patient-list">
         {%for hospitalization in hospitalizations_of_department%}
-            <a id="{{hospitalization.id}}" data-reanimation='{{hospitalization.reanimation}}'class="patient-item" href="{% url 'patient:index' hospitalization.patient_id.id%}" style="text-decoration: none; color: black;">
+            <a id="{{hospitalization.id}}" data-reanimation='{{hospitalization.reanimation}}' class="patient-item" href="{% url 'patient:index' hospitalization.patient_id.id%}" style="text-decoration: none; color: black;">
                 <span><i style="margin-right: 5px;" class="fa-solid fa-clipboard-user"></i> {{hospitalization.patient_id.last_name}} {{hospitalization.patient_id.first_name}} {{hospitalization.patient_id.surname}}</span>
                 <span>{{ hospitalization.patient_id.age }} {{ hospitalization.patient_id.age|age_pluralize }}, госпитализация: {{hospitalization.receipt_date|date:"d.m.Y H:i"}}</span>
             </a> 
@@ -52,7 +52,7 @@
 
     <div class="my-patients">
         {%for hospitalization in hospitalizations_of_doctor%}
-            <a class="patient-item">
+            <a class="patient-item" data-reanimation='{{hospitalization.reanimation}}' href="{% url 'patient:index' hospitalization.patient_id.id%}" style="text-decoration: none; color: black;">
                 <span><i style="margin-right: 10px;" class="fa-solid fa-clipboard-user"></i>{{hospitalization.patient_id.last_name}} {{hospitalization.patient_id.first_name}} {{hospitalization.patient_id.surname}}</span>
                 <span>{{ hospitalization.patient_id.age }} {{ hospitalization.patient_id.age|age_pluralize }}, госпитализация: {{hospitalization.receipt_date|date:"d.m.Y H:i"}}</span>
             </a> 

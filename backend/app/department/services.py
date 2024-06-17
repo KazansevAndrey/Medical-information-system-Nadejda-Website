@@ -38,3 +38,11 @@ def get_patients(hospitalizations):
             'receipt_date': hospitalization.receipt_date.strftime("%d.%m.%Y %H:%M"),
         })
     return patients
+
+def get_reanimations(patients):
+    reanimations = []
+    for patient in patients:
+
+        reanimation = Hospitalization.objects.get(med_card_id__med_card_status='o', patient_id=patient['id']).reanimation
+        reanimations.append(reanimation)
+    return reanimations

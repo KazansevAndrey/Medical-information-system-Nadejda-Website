@@ -52,7 +52,9 @@ def fetch_patients(request, department_id):
         doctor_patients = []
         department_patients = get_patients(hospitalizations_of_department)
         doctor_patients = get_patients(hospitalizations_of_doctor)
-        sent_data = {'patients_of_department': department_patients, 'patients_of_doctor': doctor_patients}
+        reanimations_of_department = get_reanimations(department_patients)
+        reanimations_of_doctor = get_reanimations(doctor_patients)
+        sent_data = {'patients_of_department': department_patients, 'reanimations_of_department':reanimations_of_department, 'patients_of_doctor': doctor_patients, 'reanimations_of_doctor': reanimations_of_doctor}
         return JsonResponse(sent_data)
     
 def search_patients(request, department_id): 
@@ -75,7 +77,9 @@ def search_patients(request, department_id):
         doctor_patients = []
         department_patients = get_patients(hospitalizations_of_department)
         doctor_patients = get_patients(hospitalizations_of_doctor)      
-        sent_data = {'patients_of_department': department_patients, 'patients_of_doctor': doctor_patients}
+        reanimations_of_department = get_reanimations(department_patients)
+        reanimations_of_doctor = get_reanimations(doctor_patients)
+        sent_data = {'patients_of_department': department_patients, 'reanimations_of_department':reanimations_of_department, 'patients_of_doctor': doctor_patients, 'reanimations_of_doctor': reanimations_of_doctor}
         return JsonResponse(sent_data)
     
 
