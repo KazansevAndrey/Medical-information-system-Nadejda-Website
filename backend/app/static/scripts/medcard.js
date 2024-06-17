@@ -1,3 +1,22 @@
+function saveCurrentTabState() {
+  const currentTab = document.querySelector('.btn_block2.active').id;
+  localStorage.setItem('currentTab', currentTab);
+}
+
+// Attach the saveCurrentTabState function to any button or link that causes navigation
+document.querySelectorAll('a, button').forEach(element => {
+  element.addEventListener('click', saveCurrentTabState);
+});
+function restoreTabState() {
+  const savedTab = localStorage.getItem('currentTab');
+  if (savedTab) {
+    const targetButton = document.getElementById(savedTab);
+    if (targetButton) {
+      showContent(targetButton.getAttribute('onclick').split("'")[1]);
+      targetButton.classList.add('active');
+    }
+  }
+}
 document.addEventListener('DOMContentLoaded', function() {
 const dropdownToggle = document.querySelector('.dropdown-toggle');
 const dropdownMenu = document.querySelector('.dropdown-menu');
