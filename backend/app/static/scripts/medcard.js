@@ -239,8 +239,6 @@ function new_diaries(patient_id){
 
   }
   
-
-
 function closeModal() {
   document.getElementById("custom-modal").style.display = "none";
 }
@@ -269,7 +267,9 @@ document.getElementById('custom-modal').addEventListener('submit', function(even
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
-        closeModal();
+        location.reload();
+        
+
     })
     .catch((error) => {
         console.error('Error:', error);
