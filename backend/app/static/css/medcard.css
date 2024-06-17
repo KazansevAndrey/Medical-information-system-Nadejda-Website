@@ -738,7 +738,7 @@ input[type="text"] {
 }
 
 #custom-modal input[type="text"],
-#custom-modal input[type="date"],
+#custom-modal input[type="datetime-local"],
 #custom-modal textarea {
   width: 100%;
   padding: 10px;
