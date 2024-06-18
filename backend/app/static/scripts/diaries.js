@@ -1,6 +1,6 @@
 function Exit() {
-    window.history.back();
-  }
+    window.location.href = 'medcard.html';
+}
          // Функция для закрытия всплывающего окна
          function closePopup() {
           document.getElementById('popup1').style.display = 'none';
