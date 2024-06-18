@@ -199,7 +199,7 @@
           <h2>Добавить дневник</h2>
           <form data-patient_id = {{patient.id}}>
               <label for="patient_name">Пациент:</label>
-              <input type="text" id="patient_name" name="patient_name" value="Константиновский Константин Константинович" disabled>
+              <input type="text" id="patient_name" name="patient_name" value="{{patient.last_name}} {{patient.first_name}} {{patient.surname}}" disabled>
 
               <label for="diary_date">Указать дату дневника:</label>
               <input type="datetime-local" id="diary_date" name="diary_date">
