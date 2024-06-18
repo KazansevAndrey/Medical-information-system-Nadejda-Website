@@ -153,7 +153,8 @@ const diagnoseItemTemplate = (diagnose) =>
 const diaryItemTemplate = (diary) =>
     `<div class="dropdown-item" onclick="diaries('${diary.id}')" id="d10">
               <div class="span-column">
-                <span class="item-title">${diary.date}</span>
+                <span class="item-title">Дневник</span>
+                <span class="item-date">${diary.date}</span>
                 <span class="item-date">${diary.additional}</span>
               </div>
               <i class="fa-solid fa-arrow-right awesome"></i>

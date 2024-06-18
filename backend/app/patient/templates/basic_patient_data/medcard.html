@@ -173,7 +173,8 @@
             {%for diary in diaries%}
             <div class="dropdown-item" onclick="diaries('{{diary.id}}')" id="d10">
               <div class="span-column">
-                <span class="item-title">{{diary.date|date:"d.m.Y H:i"}}</span>
+                <span class="item-title">Дневник</span>
+                <span class="item-date">{{diary.date|date:"d.m.Y H:i"}}</span>
                 <span class="item-date">{{diary.additional}}</span>
               </div>
               <i class="fa-solid fa-arrow-right awesome"></i>

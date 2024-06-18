@@ -6,10 +6,9 @@ from django.contrib.auth.hashers import check_password
 class CustomUserBackend(BaseBackend):
     def authenticate(self, request, username, phone_number, password):
         print(Doctor.objects.all())
-
         try:
-            doctor = Doctor.objects.get(iin=username, phone_number=phone_number, password=password) 
-            if doctor is not None:      
+            doctor = Doctor.objects.get(iin=username, phone_number=phone_number) 
+            if doctor is not None and check_password(password, doctor.password):      
                 return doctor
             else:
                 return None
