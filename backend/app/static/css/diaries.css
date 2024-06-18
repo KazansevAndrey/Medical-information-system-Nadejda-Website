@@ -60,3 +60,33 @@ body {
     color: #666;
     padding: 5px 0px 5px 0px;
 }
+        /* Стили для полей ввода */
+        textarea[data-key], select[data-key] {
+            width: calc(100% - 20px);
+            padding: 4px 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none; /* Отключаем возможность изменения размера вручную */
+            overflow: hidden; /* Скрываем полосу прокрутки */
+            min-height: 24px; /* Минимальная высота для textarea */
+        }
+#writeDiary{
+    background-color: #01813fbf;
+    color: white;
+    transition: background-color 0.2s;
+}
+
+#writeDiary:hover {
+    background-color: #00742ecf; 
+}
+#deleteDiary{
+    background-color: #f20000a9;
+    color: white;
+    transition: background-color 0.2s;
+}
+
+#deleteDiary:hover {
+    background-color: #ae0101d6; 
+}
