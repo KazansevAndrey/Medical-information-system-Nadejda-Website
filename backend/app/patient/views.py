@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.db.models import Q
 from .services import *
-from patient_diary.diary_services import get_diaries_types, get_diary_type
+from patient_diary.diary_services import get_diaries_types, get_diaries_list, get_diary_type
 from accounts.doctor_services import get_doctor_full_name
 from app import settings
 from patient_analysis.models import Analysis

@@ -93,6 +93,6 @@ function get_age(number, titles) {
 const patients_template = (patient, reanimation) => `
     <a data-reanimation='${reanimation}' style='text-decoration:none; color:#000' href="/patient/${patient.id}" class="patient-item">
         <span><i class="fa-solid fa-clipboard-user" style="margin-right: 10px;"></i>${patient.last_name} ${patient.first_name} ${patient.surname}</span>
-        <span>${get_age(patient.age, ['год', 'года', 'лет'])}, госпитализация: ${patient.receipt_date}</span>
+        <span  id="shadow" >${get_age(patient.age, ['год', 'года', 'лет'])}, госпитализация: ${patient.receipt_date}</span>
     </a>
 `;

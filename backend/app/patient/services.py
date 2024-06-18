@@ -1,4 +1,3 @@
-from pytz import timezone as pytz_timezone
 from django.utils import timezone
 from .models import Patient, Hospitalization, PatientMetrick, MedCard
 from patient_analysis.models import Analysis

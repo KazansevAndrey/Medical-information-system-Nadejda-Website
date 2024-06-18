@@ -13,25 +13,26 @@
           <span class="item-title">Пациент</span>
           <span class="item-date" data-key="patient" data-editable="false">{{patient.last_name}} {{patient.first_name}} {{patient.surname}}, {{patient.age}} {{patient.age|age_pluralize}}</span>
           <span class="item-title">Состав осмотра</span>
-          <span class="item-date" data-key="examination">{{diary.bypass}}</span>
+          <span class="item-date" data-key="objective_data">{{diary.bypass}}</span>
           <span class="item-title">Вид дневника</span>
           <span class="item-date" data-key="diary_type">{{diary.diary_type}}</span>
           <span class="item-title">Автор</span>
           <span class="item-date" data-key="author" data-editable="false">{{diary.author}}</span>
           <span class="item-title">Данные объективного осмотра</span>
-          <span class="item-date" data-key="objective_data">{{diary.examination}}</span>
+          <span class="item-date" data-key="examination">{{diary.examination}}</span>
           <span class="item-title">Дополнительные сведения</span>
           <span class="item-date" data-key="additional_info">{{diary.additional}}</span>
         </div>
         <button onclick="Close()">Закрыть</button>
         <div style="display:flex; flex-direction: row; gap: 10px;">
-            <button onclick="deleteDiary()" id="deleteDiary">Удалить дневник</button>
-            <button onclick="editDiary()" id="writeDiary">Редактировать</button>
+            <button onclick="deleteDiary('{{patient.id}}')" id="deleteDiary">Удалить дневник</button>
+            <button onclick="editDiary({{diary_types|safe}})" id='writeDiary'>Редактировать</button>
         </div>
     </div>
 {%endblock%}
 {%block scripts%}
 <script src="{% static 'scripts/close.js'%}"></script>
+<script src="{% static 'scripts/diary.js'%}"></script>
 {%endblock%}
 </body>
 </html>
