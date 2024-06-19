@@ -82,7 +82,7 @@
           <div><i class="fas fa-hashtag"></i> <span class="span_pokaz">Выпускники: <span class="span_rez" id="pusk"> 0 </span></span></div>
         </div>
       </div>
-      <a id="editBtn" onclick="EditInfoAboutPatient('{{ patient.id }}', '{{ patient.birth_date|date:"Y-m-d" }}')" style="color: rgb(27, 76, 181); cursor: pointer;border-bottom: 1px solid rgb(27, 77, 185);">Редактировать</a>
+      <a id="editBtn" onclick="EditInfoAboutPatient('{{ patient.id }}', '{{ patient.birth_date|date:"Y-m-d" }}')" style="color: rgb(27, 76, 181); cursor: pointer;border-bottom: 1px solid rgb(27, 77, 185);"><i class="fa-solid fa-pen-to-square" style="margin-right: 4px">Редактировать</a>
     </div>
     <div id="content2" class="content2">
       <div class="forms">
@@ -181,7 +181,7 @@
             </div>
             {%endfor%}
           </div>
-          <a class="new_diaries" style="cursor: pointer; color: rgb(27, 76, 181); border-bottom: 1px solid rgb(27, 77, 185); margin-top: 6px; width: fit-content;" onclick="new_diaries('{{patient.id}}')">Добавить дневник</a>
+          <a class="new_diaries" style="cursor: pointer; color: rgb(27, 76, 181); border-bottom: 1px solid rgb(27, 77, 185); margin-top: 6px; width: fit-content;" onclick="new_diaries('{{patient.id}}')"><i class="fa-solid fa-pen-to-square" style="margin-right: 4px">Добавить дневник</a>
         </div>
       </div>
 
@@ -189,7 +189,7 @@
         <div id = 'items-container' class="buttons-vertical">
         </div>
         <div style="margin-top: 10px;">
-          <a class="new_diaries" style="cursor: pointer; color: rgb(27, 76, 181); border-bottom: 1px solid rgb(27, 77, 185); margin-top: 6px; width: fit-content;" onclick="new_diaries('{{patient.id}}')">Добавить дневник</a>
+          <a class="new_diaries" style="cursor: pointer; color: rgb(27, 76, 181); border-bottom: 1px solid rgb(27, 77, 185); margin-top: 6px; width: fit-content;" onclick="new_diaries('{{patient.id}}')"><i class="fa-solid fa-pen-to-square" style="margin-right: 4px">Добавить дневник</a>
         </div>
       </div>
 
