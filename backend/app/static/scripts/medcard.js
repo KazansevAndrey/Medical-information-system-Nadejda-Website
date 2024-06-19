@@ -253,9 +253,14 @@ function getCookie(name) {
 // модальное окно 
 function new_diaries(patient_id){
   document.getElementById("custom-modal").style.display = "block";
-  const currentDate = new Date().toISOString().split('T')[0];
-  document.getElementById("diary_date").value = currentDate;
+  const currentDateTime = new Date();
+  
+  const date = currentDateTime.toISOString().split('T')[0]; // Получаем дату в формате YYYY-MM-DD
+  const time = currentDateTime.toTimeString().split(' ')[0].substring(0, 5); // Получаем время в формате HH:MM
+  
+  const dateTimeLocal = `${date}T${time}`; // Объединяем дату и время в нужном формате
 
+  document.getElementById("diary_date").value = dateTimeLocal;
   }
   
 function closeModal() {
