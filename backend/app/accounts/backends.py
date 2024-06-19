@@ -8,6 +8,7 @@ class CustomUserBackend(BaseBackend):
         print(Doctor.objects.all())
         try:
             doctor = Doctor.objects.get(iin=username, phone_number=phone_number) 
+            print(doctor)
             if doctor is not None and check_password(password, doctor.password):      
                 return doctor
             else:
