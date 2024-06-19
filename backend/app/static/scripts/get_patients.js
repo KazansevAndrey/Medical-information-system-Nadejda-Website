@@ -22,14 +22,12 @@ function ShowPatients(){
             for (let i = 0; i < PatientsOfDepartmentIterations; i++) {
                 var patient = data.patients_of_department[i];
                 var reanimation = data.reanimations_of_department[i] 
-                console.log(reanimation)
                 depPatientsContainer.append(patients_template(patient, reanimation))
             }
 
             for (let i = 0; i < PatientsOfDoctorIterations; i++) {
                 var patient = data.patients_of_doctor[i];
                 var reanimation = data.reanimations_of_doctor[i] 
-                console.log(patient)
                 docPatiensContainer.append(patients_template(patient, reanimation))
             }
             color_patients_in_reanimation();
@@ -58,14 +56,12 @@ function search_patients(){
             for (let i = 0; i < patientsOfDepartmentIterations; i++) {
                 var patient = data.patients_of_department[i];
                 var reanimation = data.reanimations_of_department[i] 
-                console.log(reanimation)
                 depPatientsContainer.append(patients_template(patient, reanimation))
             }
 
             for (let i = 0; i < patientsOfDoctorIterations; i++) {
                 var patient = data.patients_of_doctor[i];
                 var reanimation = data.reanimations_of_doctor[i] 
-                console.log(patient)
                 docPatientsContainer.append(patients_template(patient, reanimation))
             }
             color_patients_in_reanimation();

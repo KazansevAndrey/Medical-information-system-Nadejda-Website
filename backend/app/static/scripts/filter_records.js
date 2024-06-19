@@ -45,11 +45,8 @@ function getTemplate(item){
 
 function FilterRecords(patient_id){
     var category = document.getElementById('categories').value;
-    console.log(category)
     var date = document.getElementById('date').value;
-    console.log(date)
     var list_type = document.getElementById('list_type').value;
-    console.log(list_type)
     $.ajax({
         url: `/patient/${patient_id}/sorting`, 
         data: {
@@ -69,7 +66,6 @@ function FilterRecords(patient_id){
                         analyzesContainer.append(analisisItemTemplate(analysis))})
                     
                     data.examinations.forEach(function(examination){
-                        console.log(examination.date)
                         examinationsContainer.append(examinationItemTemplate(examination))})
                     
                     data.diagnoses.forEach(function(diagnose){
@@ -105,7 +101,6 @@ function FilterRecords(patient_id){
 
 function search_analyses(patient_id){
     var query = document.getElementById('search-input').value;
-    console.log("Активирована функция поиск анализов")
     $.ajax({
         url: `${patient_id}/search_analyses`, // URL для поиска пациентов
         data: {

@@ -290,7 +290,6 @@ document.getElementById('custom-modal').addEventListener('submit', function(even
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Success:', data);
         location.reload();
 
 
