@@ -4,6 +4,14 @@ function closePopup() {
     document.getElementById('popup1').style.display = 'none';
 }
 
+function showDeleteConfirmation() {
+    document.getElementById('deleteConfirmationModal').style.display = 'block';
+}
+
+function closeDeleteConfirmation() {
+    document.getElementById('deleteConfirmationModal').style.display = 'none';
+}
+
 // Функция для редактирования дневника
 function editDiary(diary_types) {
     // Найти все элементы с классом item-date
@@ -90,6 +98,7 @@ function saveDiary() {
         body: JSON.stringify(data)
     }).then(response => {
         if (response.ok) {
+            location.reload() ;
         } else {
             alert('Ошибка при сохранении данных');
         }
@@ -115,6 +124,7 @@ function deleteDiary(patient_id) {
     }).then(response => {
         if (response.ok) {
             closePopup();
+            closeDeleteConfirmation();
             window.location.href = "/patient/"+ patient_id ;
         } else {
             alert('Ошибка при удалении дневника');

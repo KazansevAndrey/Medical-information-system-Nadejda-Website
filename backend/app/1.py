@@ -1,0 +1,1 @@
+open("mydata-new.json","wb").write(open("dump.json", "rb").read().decode("unicode_escape").encode("utf8"))

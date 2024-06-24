@@ -25,10 +25,17 @@
         </div>
         <button onclick="Close()">Закрыть</button>
         <div style="display:flex; flex-direction: row; gap: 10px;">
-            <button onclick="deleteDiary('{{patient.id}}')" id="deleteDiary">Удалить дневник</button>
+            <button onclick="showDeleteConfirmation()" id="deleteDiary">Удалить дневник</button>
             <button onclick="editDiary({{diary_types|safe}})" id='writeDiary'>Редактировать</button>
         </div>
+    <div id="deleteConfirmationModal" class="modal">
+        <div class="modal-content">
+            <p>Вы уверены, что хотите удалить этот дневник?</p>
+            <button onclick="deleteDiary('{{patient.id}}')">Да</button>
+            <button onclick="closeDeleteConfirmation()">Нет</button>
+        </div>
     </div>
+
 {%endblock%}
 {%block scripts%}
 <script src="{% static 'scripts/close.js'%}"></script>
